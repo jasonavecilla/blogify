@@ -1,5 +1,14 @@
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+
 export default function App() {
+  const HomePage = () => {
+    return <h1>Welcome to Blogify</h1>;
+  };
   return (
-    <h1 className="text-3xl text-red-500 font-bold underline">Hello world!</h1>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/login" element={<HomePage />}></Route>
+      </Routes>
+    </BrowserRouter>
   );
 }
