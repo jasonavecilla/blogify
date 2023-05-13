@@ -1,5 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
+import { act } from "react-dom/test-utils";
 
 //initialstate
 
@@ -20,7 +21,6 @@ const INITIAL_STATE = {
 };
 
 //! Login Action
-
 export const loginAction = createAsyncThunk(
   "users/login",
   async (payload, { rejectWithValue, getState, dispatch }) => {
@@ -36,3 +36,31 @@ export const loginAction = createAsyncThunk(
     }
   }
 );
+
+//! Users slices
+const usersSlice = createSlice({
+  name: "users",
+  initialState: INITIAL_STATE,
+  extraReducers: (builder) => {
+    //Login
+    builder.addCase(loginAction.pending, (state, action) => {
+      state.loading = true;
+    });
+    //handle fulfilled state
+    builder.addCase(loginAction.fulfilled, (state, action) => {
+      state.userAuth.userInfo = action.payload;
+      state.loading = false;
+      state.error = null;
+    });
+    //* Handle the rejection
+    builder.addCase(loginAction.rejected, (state, action) => {
+      state.error = action.payload;
+      state.loading = false;
+    });
+  },
+});
+
+//! generate reducer
+const usersReducer = usersSlice.reducer;
+
+export default usersReducer;
