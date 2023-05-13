@@ -16,7 +16,9 @@ const INITIAL_STATE = {
   profile: {},
   userAuth: {
     error: null,
-    userInfo: {},
+    userInfo: localStorage.getItem("userInfo")
+      ? JSON.parse(localStorage.getItem("userInfo"))
+      : null,
   },
 };
 
@@ -26,11 +28,13 @@ export const loginAction = createAsyncThunk(
   async (payload, { rejectWithValue, getState, dispatch }) => {
     //make request
     try {
-      const response = await axios.post(
-        "http://localhost:5000/api/v1/users/login",
+      const { data } = await axios.post(
+        "http://localhost:9080/api/v1/users/login",
         payload
       );
-      return response;
+      //! save the user into localstorage
+      localStorage.setItem("userInfo", JSON.stringify(data));
+      return data;
     } catch (error) {
       return rejectWithValue(error?.response?.data);
     }
