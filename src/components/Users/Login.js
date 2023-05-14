@@ -7,7 +7,7 @@ import ErrorMsg from "../Alert/ErrorMsg";
 import SuccesMsg from "../Alert/SuccesMsg";
 
 const Login = () => {
-  //! Nvaihation hook
+  //! Nvaigation hook
   const navigate = useNavigate();
   //! Dispatch
   const dispatch = useDispatch();

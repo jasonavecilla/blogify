@@ -8,7 +8,7 @@ const INITIAL_STATE = {
   loading: false,
   error: null,
   users: [],
-  users: null,
+  user: null,
   success: false,
   isUpated: false,
   isDeleted: false,
@@ -42,6 +42,23 @@ export const loginAction = createAsyncThunk(
   }
 );
 
+//! Register Action
+export const registerAction = createAsyncThunk(
+  "users/register",
+  async (payload, { rejectWithValue, getState, dispatch }) => {
+    //make request
+    try {
+      const { data } = await axios.post(
+        "http://localhost:9080/api/v1/users/register",
+        payload
+      );
+      return data;
+    } catch (error) {
+      return rejectWithValue(error?.response?.data);
+    }
+  }
+);
+
 // ! Logout action
 export const logoutAction = createAsyncThunk("users/logout", async () => {
   //remove token from localstorage
@@ -66,6 +83,23 @@ const usersSlice = createSlice({
     });
     //* Handle the rejection
     builder.addCase(loginAction.rejected, (state, action) => {
+      state.error = action.payload;
+      state.loading = false;
+    });
+
+    //! Register
+    builder.addCase(registerAction.pending, (state, action) => {
+      state.loading = true;
+    });
+    //handle fulfilled state
+    builder.addCase(registerAction.fulfilled, (state, action) => {
+      state.user = action.payload;
+      state.success = true;
+      state.loading = false;
+      state.error = null;
+    });
+    //* Handle the rejection
+    builder.addCase(registerAction.rejected, (state, action) => {
       state.error = action.payload;
       state.loading = false;
     });
