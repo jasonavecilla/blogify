@@ -5,6 +5,7 @@ import Login from "./components/Users/Login";
 import UserProfile from "./components/Users/UserProfile";
 import PublicNavbar from "./components/Navbar/PublicNavbar";
 import PrivateNavbar from "./components/Navbar/PrivateNavbar";
+import ProctedRoute from "./components/AuthRoute/ProctedRoute";
 
 export default function App() {
   //! Get the login user from store
@@ -19,7 +20,14 @@ export default function App() {
         <Route path="" element={<Homepage />}></Route>
         <Route path="/login" element={<Login />}></Route>
         {/* profile */}
-        <Route path="/user-profile" element={<UserProfile />}></Route>
+        <Route
+          path="/user-profile"
+          element={
+            <ProctedRoute>
+              <UserProfile />
+            </ProctedRoute>
+          }
+        ></Route>
       </Routes>
     </BrowserRouter>
   );
