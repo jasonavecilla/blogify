@@ -8,7 +8,7 @@ function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
 }
 
-export default function Navbar() {
+export default function PrivateNavbar() {
   return (
     <Disclosure as="nav" className="bg-white shadow">
       {({ open }) => (
@@ -53,12 +53,6 @@ export default function Navbar() {
                   >
                     Posts
                   </Link>
-                  <Link
-                    to={"/login"}
-                    className="inline-flex items-center border-b-2 border-transparent px-1 pt-1 text-sm font-medium text-gray-500 hover:border-gray-300 hover:text-gray-700"
-                  >
-                    Login
-                  </Link>
                 </div>
               </div>
               <div className="flex items-center">
@@ -72,14 +66,6 @@ export default function Navbar() {
                   </Link>
                 </div>
                 <div className="hidden md:ml-4 md:flex md:flex-shrink-0 md:items-center">
-                  <button
-                    type="button"
-                    className="rounded-full bg-white p-1 text-gray-400 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
-                  >
-                    <span className="sr-only">View notifications</span>
-                    <BellIcon className="h-6 w-6" aria-hidden="true" />
-                  </button>
-
                   {/* Profile dropdown */}
                   <Menu as="div" className="relative ml-3">
                     <div>
