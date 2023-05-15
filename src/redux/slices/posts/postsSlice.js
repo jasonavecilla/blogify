@@ -30,6 +30,37 @@ export const fetchPublicPostsAction = createAsyncThunk(
   }
 );
 
+// ! Create post
+export const addPostAction = createAsyncThunk(
+  "post/create",
+  async (payload, { rejectWithValue, getState, dispatch }) => {
+    console.log(payload);
+    try {
+      //convert the payload to formdata
+      const formData = new FormData();
+      formData.append("title", payload?.title);
+      formData.append("content", payload?.content);
+      formData.append("categoryId", payload?.category);
+      formData.append("file", payload?.image);
+
+      const token = getState().users?.userAuth?.userInfo?.token;
+      const config = {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      };
+      const { data } = await axios.post(
+        "http://localhost:9080/api/v1/posts",
+        formData,
+        config
+      );
+      return data;
+    } catch (error) {
+      return rejectWithValue(error?.response?.data);
+    }
+  }
+);
+
 //! Users slices
 const publicPostSlice = createSlice({
   name: "posts",
@@ -48,6 +79,23 @@ const publicPostSlice = createSlice({
     });
     //* Handle the rejection
     builder.addCase(fetchPublicPostsAction.rejected, (state, action) => {
+      state.error = action.payload;
+      state.loading = false;
+    });
+
+    //! create post
+    builder.addCase(addPostAction.pending, (state, action) => {
+      state.loading = true;
+    });
+    //handle fulfilled state
+    builder.addCase(addPostAction.fulfilled, (state, action) => {
+      state.post = action.payload;
+      state.success = true;
+      state.loading = false;
+      state.error = null;
+    });
+    //* Handle the rejection
+    builder.addCase(addPostAction.rejected, (state, action) => {
       state.error = action.payload;
       state.loading = false;
     });

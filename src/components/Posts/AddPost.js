@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Select from "react-select";
 import { fetchCategoriesAction } from "../../redux/slices/categories/categoriesSlice";
+import { addPostAction } from "../../redux/slices/posts/postsSlice";
 const AddPost = () => {
   //fetch categories
   const dispatch = useDispatch();
@@ -39,7 +40,8 @@ const AddPost = () => {
     setFormData({ ...formData, image: e.target.files[0] });
   };
   const handleSubmit = (e) => {
-    console.log(formData);
+    //dispatch action
+    dispatch(addPostAction(formData));
     e.preventDefault();
     setFormData({
       title: "",
