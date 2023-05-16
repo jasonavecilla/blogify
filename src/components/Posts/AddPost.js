@@ -3,12 +3,14 @@ import { useDispatch, useSelector } from "react-redux";
 import Select from "react-select";
 import { fetchCategoriesAction } from "../../redux/slices/categories/categoriesSlice";
 import { addPostAction } from "../../redux/slices/posts/postsSlice";
+import LoadingComponent from "../Alert/LoadingComponent";
+import ErrorMsg from "../Alert/ErrorMsg";
+import SuccesMsg from "../Alert/SuccesMsg";
 const AddPost = () => {
   //fetch categories
   const dispatch = useDispatch();
   //get data from store
   const { categories } = useSelector((state) => state?.categories);
-  console.log(categories?.categories);
 
   const options = categories?.categories?.map((category) => {
     return {
@@ -16,6 +18,10 @@ const AddPost = () => {
       label: category?.name,
     };
   });
+  //! Get post from store
+  const { post, error, loading, success } = useSelector(
+    (state) => state?.posts
+  );
 
   useEffect(() => {
     dispatch(fetchCategoriesAction());
@@ -58,6 +64,9 @@ const AddPost = () => {
           <h2 className="mb-4 text-2xl md:text-3xl text-coolGray-900 font-bold text-center">
             Add New Post
           </h2>
+          {/* error */}
+          {error && <ErrorMsg message={error?.message} />}
+          {success && <SuccesMsg message="Post created successfully" />}
           <h3 className="mb-7 text-base md:text-lg text-coolGray-500 font-medium text-center">
             Share your thoughts and ideas with the community
           </h3>
@@ -104,12 +113,16 @@ const AddPost = () => {
             />
           </label>
           {/* button */}
-          <button
-            className="mb-4 inline-block py-3 px-7 w-full leading-6 text-green-50 font-medium text-center bg-green-500 hover:bg-green-600 focus:ring-2 focus:ring-green-500 focus:ring-opacity-50 rounded-md"
-            type="submit"
-          >
-            Post
-          </button>
+          {loading ? (
+            <LoadingComponent />
+          ) : (
+            <button
+              className="mb-4 inline-block py-3 px-7 w-full leading-6 text-green-50 font-medium text-center bg-green-500 hover:bg-green-600 focus:ring-2 focus:ring-green-500 focus:ring-opacity-50 rounded-md"
+              type="submit"
+            >
+              Post
+            </button>
+          )}
         </div>
       </form>
     </div>

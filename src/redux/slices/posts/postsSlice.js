@@ -34,7 +34,6 @@ export const fetchPublicPostsAction = createAsyncThunk(
 export const addPostAction = createAsyncThunk(
   "post/create",
   async (payload, { rejectWithValue, getState, dispatch }) => {
-    console.log(payload);
     try {
       //convert the payload to formdata
       const formData = new FormData();
