@@ -1,6 +1,6 @@
 import React from "react";
 
-const PostDetailsTemplate = () => {
+const PostDetails = () => {
   return (
     <section
       className="py-16 bg-white md:py-24"
@@ -117,4 +117,4 @@ const PostDetailsTemplate = () => {
   );
 };
 
-export default PostDetailsTemplate;
+export default PostDetails;
