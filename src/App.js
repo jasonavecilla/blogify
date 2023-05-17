@@ -9,6 +9,7 @@ import ProctedRoute from "./components/AuthRoute/ProctedRoute";
 import PublicPosts from "./components/Posts/PublicPosts";
 import AddPost from "./components/Posts/AddPost";
 import PostDetails from "./components/Posts/PostDetails";
+import PostLists from "./components/Posts/PostLists";
 
 export default function App() {
   //! Get the login user from store
@@ -47,6 +48,16 @@ export default function App() {
           element={
             <ProctedRoute>
               <PostDetails />
+            </ProctedRoute>
+          }
+        ></Route>
+
+        {/* post details */}
+        <Route
+          path="/posts"
+          element={
+            <ProctedRoute>
+              <PostLists />
             </ProctedRoute>
           }
         ></Route>
