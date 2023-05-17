@@ -4,6 +4,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import LoadingComponent from "../Alert/LoadingComponent";
 import ErrorMsg from "../Alert/ErrorMsg";
+import PostStats from "./PostStats";
+import calculateReadingtime from "../../utils/calculateReadingtime";
 
 const PostDetails = () => {
   //! redux store
@@ -87,6 +89,15 @@ const PostDetails = () => {
             }}
           >
             {/* Posts stats */}
+            <PostStats
+              views={post?.post?.postViews}
+              likes={post?.post?.likes.length}
+              dislikes={post?.post?.dislikes.length}
+              postViews={post?.post?.postViews}
+              totalComments={post?.post?.comments?.length}
+              createdAt={post?.post?.createdAt}
+              readingTime={calculateReadingtime(post?.post?.content)}
+            />
           </div>
           <div className="container px-4 mx-auto">
             <div className="mx-auto md:max-w-3xl">
