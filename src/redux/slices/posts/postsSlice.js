@@ -133,7 +133,6 @@ const publicPostSlice = createSlice({
     //handle fulfilled state
     builder.addCase(fetchPublicPostsAction.fulfilled, (state, action) => {
       state.posts = action.payload;
-      state.success = true;
       state.loading = false;
       state.error = null;
     });
@@ -149,7 +148,6 @@ const publicPostSlice = createSlice({
     //handle fulfilled state
     builder.addCase(fetchPrivatePostsAction.fulfilled, (state, action) => {
       state.posts = action.payload;
-      state.success = true;
       state.loading = false;
       state.error = null;
     });
