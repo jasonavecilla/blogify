@@ -59,7 +59,8 @@ const PostLists = () => {
                       >
                         <img
                           className="w-full"
-                          src="https://cdn.pixabay.com/photo/2017/11/27/21/31/computer-2982270_960_720.jpg"
+                          alt="post image"
+                          src={post?.image}
                         />
                       </a>
                       <div className="mb-4">
@@ -71,7 +72,7 @@ const PostLists = () => {
                         </a>
                       </div>
                       <p className="mb-2 text-coolGray-500 font-medium">
-                        {post?.createdAt}
+                        {new Date(post?.createdAt).toDateString()}
                       </p>
                       <a
                         className="inline-block mb-4 text-2xl md:text-3xl leading-tight text-coolGray-800 hover:text-coolGray-900 font-bold hover:underline"
