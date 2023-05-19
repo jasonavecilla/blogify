@@ -103,6 +103,7 @@ const AddPost = () => {
               name="title"
               value={formData.title}
               onBlur={handleBlur}
+              onChange={handleChange}
             />
             {/* error here */}
             {errors?.title && <p className="text-red-500 ">{errors.title}</p>}

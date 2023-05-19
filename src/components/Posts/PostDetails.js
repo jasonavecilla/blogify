@@ -1,13 +1,18 @@
 import React, { useEffect } from "react";
-import { getPostAction } from "../../redux/slices/posts/postsSlice";
+import {
+  deletePostAction,
+  getPostAction,
+} from "../../redux/slices/posts/postsSlice";
 import { useDispatch, useSelector } from "react-redux";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import LoadingComponent from "../Alert/LoadingComponent";
 import ErrorMsg from "../Alert/ErrorMsg";
 import PostStats from "./PostStats";
 import calculateReadingtime from "../../utils/calculateReadingtime";
 
 const PostDetails = () => {
+  //! navigation
+  const navigate = useNavigate();
   //! redux store
   const dispatch = useDispatch();
   const { post, error, loading, success } = useSelector(
@@ -23,11 +28,22 @@ const PostDetails = () => {
   }, [dispatch]);
 
   //! Get the creator of the post
-  const creator = post?.author?._id?.toString();
+  const creator = post?.post?.author?._id?.toString();
   // //! get the login user
   const loginUser = userAuth?.userInfo?._id?.toString();
-
+  console.log({
+    creator,
+    loginUser,
+  });
   const isCreator = creator === loginUser;
+
+  //! Delete post handler
+  const deletePostHandler = () => {
+    dispatch(deletePostAction(postId));
+    if (success) {
+      navigate("/posts");
+    }
+  };
   return (
     <>
       {loading ? (
@@ -112,8 +128,10 @@ const PostDetails = () => {
               <p className="pb-10 mb-8 text-lg font-medium border-b md:text-xl text-coolGray-500 border-coolGray-100">
                 {post?.post?.content}
               </p>
+              {/* delete and update icons */}
               {isCreator && (
                 <div className="flex justify-end mb-4">
+                  {/* edit */}
                   <button className="p-2 mr-2 text-gray-500 hover:text-gray-700">
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
@@ -130,7 +148,11 @@ const PostDetails = () => {
                       />
                     </svg>
                   </button>
-                  <button className="p-2 text-gray-500 hover:text-gray-700">
+                  {/* delete */}
+                  <button
+                    onClick={deletePostHandler}
+                    className="p-2 text-gray-500 hover:text-gray-700"
+                  >
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
                       fill="none"

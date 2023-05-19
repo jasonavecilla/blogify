@@ -68,6 +68,29 @@ export const getPostAction = createAsyncThunk(
   }
 );
 
+//!delete post
+export const deletePostAction = createAsyncThunk(
+  "posts/delete-post",
+  async (postId, { rejectWithValue, getState, dispatch }) => {
+    //make request
+    try {
+      const token = getState().users?.userAuth?.userInfo?.token;
+      const config = {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      };
+      const { data } = await axios.delete(
+        `http://localhost:9080/api/v1/posts/${postId}`,
+        config
+      );
+      return data;
+    } catch (error) {
+      return rejectWithValue(error?.response?.data);
+    }
+  }
+);
+
 // ! Create post
 export const addPostAction = createAsyncThunk(
   "post/create",
@@ -168,6 +191,23 @@ const publicPostSlice = createSlice({
       state.error = action.payload;
       state.loading = false;
     });
+
+    //! detelet post
+    builder.addCase(deletePostAction.pending, (state, action) => {
+      state.loading = true;
+    });
+    //handle fulfilled state
+    builder.addCase(deletePostAction.fulfilled, (state, action) => {
+      state.success = true;
+      state.loading = false;
+      state.error = null;
+    });
+    //* Handle the rejection
+    builder.addCase(deletePostAction.rejected, (state, action) => {
+      state.error = action.payload;
+      state.loading = false;
+    });
+
     //! Reset error action
     builder.addCase(resetErrorAction.fulfilled, (state) => {
       state.error = null;
