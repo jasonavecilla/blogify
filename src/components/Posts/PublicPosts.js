@@ -19,15 +19,7 @@ const PublicPosts = () => {
     <>
       <div>
         <section className="relative py-24 bg-white">
-          <div
-            className="absolute top-0 left-0 w-full h-full"
-            style={{
-              backgroundImage:
-                'url("flex-ui-assets/elements/pattern-white.svg")',
-              backgroundRepeat: "no-repeat",
-              backgroundPosition: "left top",
-            }}
-          />
+          <div className="absolute top-0 left-0 w-full h-full" />
           <div className="container relative z-10 px-4 mx-auto">
             <div className="md:max-w-5xl mx-auto mb-8 md:mb-16 text-center">
               <span className="inline-block py-px px-2 mb-4 text-xs leading-5 text-green-500 bg-green-100 font-medium uppercase rounded-full shadow-sm">
@@ -54,10 +46,7 @@ const PublicPosts = () => {
                         className="block mb-6 overflow-hidden rounded-md"
                         href="#"
                       >
-                        <img
-                          className="w-full"
-                          src="https://cdn.pixabay.com/photo/2017/11/27/21/31/computer-2982270_960_720.jpg"
-                        />
+                        <img className="w-full" src={post?.image} />
                       </a>
                       <div className="mb-4">
                         <a
@@ -68,7 +57,7 @@ const PublicPosts = () => {
                         </a>
                       </div>
                       <p className="mb-2 text-coolGray-500 font-medium">
-                        {post?.createdAt}
+                        {new Date(post?.createdAt).toDateString()}
                       </p>
                       <a
                         className="inline-block mb-4 text-2xl md:text-3xl leading-tight text-coolGray-800 hover:text-coolGray-900 font-bold hover:underline"
