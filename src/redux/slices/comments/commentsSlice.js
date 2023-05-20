@@ -25,7 +25,7 @@ export const createCommentAction = createAsyncThunk(
           Authorization: `Bearer ${token}`,
         },
       };
-      const { data } = await axios.put(
+      const { data } = await axios.post(
         `http://localhost:9080/api/v1/comments/${payload?.postId}`,
         {
           message: payload?.message,

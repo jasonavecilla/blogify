@@ -1,15 +1,22 @@
 import React, { useState } from "react";
 import CommentsList from "./CommentLists";
+import { useDispatch } from "react-redux";
+import { createCommentAction } from "../../redux/slices/comments/commentsSlice";
 
-const AddComment = ({ onSubmit }) => {
-  const [commentText, setCommentText] = useState("");
-
+const AddComment = ({ postId }) => {
+  const [formData, setFormData] = useState({
+    message: "",
+  });
+  //dispatch
+  const dispatch = useDispatch();
+  // ! Handle change
+  const handleChange = (e) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+  //! handle submit
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (!commentText.trim()) return;
-
-    onSubmit(commentText.trim());
-    setCommentText("");
+    dispatch(createCommentAction({ ...formData, postId }));
   };
 
   return (
@@ -20,7 +27,7 @@ const AddComment = ({ onSubmit }) => {
         </h3>
         <div className="mt-5">
           <hr className="mt-5 border-gray-300" />
-          <form className="mt-4">
+          <form className="mt-4" onSubmit={handleSubmit}>
             <div className="flex space-x-4">
               <div className="flex-none">
                 <img
@@ -45,7 +52,9 @@ const AddComment = ({ onSubmit }) => {
                       rows={3}
                       className="block w-full mt-1 border-gray-300 rounded-md shadow-sm form-textarea focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50"
                       placeholder="Your comment"
-                      defaultValue={""}
+                      value={formData.message}
+                      onChange={handleChange}
+                      name="message"
                     />
                   </div>
                   <div className="flex items-center justify-end px-3 py-2 rounded-b-lg bg-gray-50">
