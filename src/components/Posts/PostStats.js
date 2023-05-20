@@ -1,9 +1,9 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { AiOutlineEye } from "react-icons/ai";
 import { RiEmotionLine } from "react-icons/ri";
 import { MdWavingHand } from "react-icons/md";
 import moment from "moment";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import {
   dislikePostAction,
   likePostAction,
@@ -25,16 +25,12 @@ const PostStats = ({
   //! Like post handler
   const likepostHandler = () => {
     dispatch(likePostAction(postId));
-    //reload
-    window.location.reload();
   };
 
-  //! disLike post handler
   const dislikepostHandler = () => {
     dispatch(dislikePostAction(postId));
-    //reload
-    window.location.reload();
   };
+
   return (
     <div className="flex flex-wrap items-center justify-center gap-2 p-2 md:justify-start">
       <div className="flex items-center gap-1 text-2xl text-gray-400">
