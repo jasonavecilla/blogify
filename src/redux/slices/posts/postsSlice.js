@@ -121,6 +121,36 @@ export const addPostAction = createAsyncThunk(
   }
 );
 
+// ! update post
+export const updatePostAction = createAsyncThunk(
+  "post/update",
+  async (payload, { rejectWithValue, getState, dispatch }) => {
+    try {
+      //convert the payload to formdata
+      const formData = new FormData();
+      formData.append("title", payload?.title);
+      formData.append("content", payload?.content);
+      formData.append("categoryId", payload?.category);
+      formData.append("file", payload?.image);
+
+      const token = getState().users?.userAuth?.userInfo?.token;
+      const config = {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      };
+      const { data } = await axios.put(
+        `http://localhost:9080/api/v1/posts/${payload?.postId}`,
+        formData,
+        config
+      );
+      return data;
+    } catch (error) {
+      return rejectWithValue(error?.response?.data);
+    }
+  }
+);
+
 //! Users slices
 const publicPostSlice = createSlice({
   name: "posts",
@@ -160,15 +190,28 @@ const publicPostSlice = createSlice({
     builder.addCase(addPostAction.pending, (state, action) => {
       state.loading = true;
     });
-    //handle fulfilled state
     builder.addCase(addPostAction.fulfilled, (state, action) => {
       state.post = action.payload;
       state.success = true;
       state.loading = false;
       state.error = null;
     });
-    //* Handle the rejection
     builder.addCase(addPostAction.rejected, (state, action) => {
+      state.error = action.payload;
+      state.loading = false;
+    });
+
+    //! update post
+    builder.addCase(updatePostAction.pending, (state, action) => {
+      state.loading = true;
+    });
+    builder.addCase(updatePostAction.fulfilled, (state, action) => {
+      state.post = action.payload;
+      state.success = true;
+      state.loading = false;
+      state.error = null;
+    });
+    builder.addCase(updatePostAction.rejected, (state, action) => {
       state.error = action.payload;
       state.loading = false;
     });

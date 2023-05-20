@@ -1,13 +1,19 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Select from "react-select";
+import { useParams } from "react-router-dom";
 import { fetchCategoriesAction } from "../../redux/slices/categories/categoriesSlice";
-import { addPostAction } from "../../redux/slices/posts/postsSlice";
+import {
+  addPostAction,
+  updatePostAction,
+} from "../../redux/slices/posts/postsSlice";
 import LoadingComponent from "../Alert/LoadingComponent";
 import ErrorMsg from "../Alert/ErrorMsg";
 import SuccesMsg from "../Alert/SuccesMsg";
 
 const UpdatePost = () => {
+  //!Get the post id from params
+  const { postId } = useParams();
   //fetch categories
   const dispatch = useDispatch();
   //! Error state
@@ -47,13 +53,6 @@ const UpdatePost = () => {
     return errors;
   };
 
-  //2. HandleBlur
-  const handleBlur = (e) => {
-    const { name } = e.target;
-    const formErrors = validateForm(formData);
-    setErrors({ ...errors, [name]: formErrors[name] });
-  };
-
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
@@ -68,18 +67,15 @@ const UpdatePost = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     //dispatch action
-    const errors = validateForm(formData);
-    setErrors(errors);
-    if (Object.keys(errors).length === 0) {
-      dispatch(addPostAction(formData));
-      e.preventDefault();
-      setFormData({
-        title: "",
-        image: null,
-        category: null,
-        content: "",
-      });
-    }
+
+    dispatch(updatePostAction({ ...formData, postId }));
+    e.preventDefault();
+    setFormData({
+      title: "",
+      image: null,
+      category: null,
+      content: "",
+    });
   };
 
   return (
@@ -91,7 +87,7 @@ const UpdatePost = () => {
           </h2>
           {/* error */}
           {error && <ErrorMsg message={error?.message} />}
-          {success && <SuccesMsg message="Post created successfully" />}
+          {success && <SuccesMsg message="Post Updated successfully" />}
           <h3 className="mb-7 text-base md:text-lg text-coolGray-500 font-medium text-center">
             Share your thoughts and ideas with the community
           </h3>
@@ -103,11 +99,9 @@ const UpdatePost = () => {
               placeholder="Enter the post title"
               name="title"
               value={formData.title}
-              onBlur={handleBlur}
               onChange={handleChange}
             />
             {/* error here */}
-            {errors?.title && <p className="text-red-500 ">{errors.title}</p>}
           </label>
           <label className="mb-4 flex flex-col w-full">
             <span className="mb-1 text-coolGray-800 font-medium">Image</span>
@@ -116,10 +110,7 @@ const UpdatePost = () => {
               type="file"
               name="image"
               onChange={handleFileChange}
-              onBlur={handleBlur}
             />
-            {/* error here */}
-            {errors?.image && <p className="text-red-500 ">{errors.image}</p>}
           </label>
           {/* category here */}
           <label className="mb-4 flex flex-col w-full">
@@ -128,13 +119,7 @@ const UpdatePost = () => {
               options={options}
               name="category"
               onChange={handleSelectChange}
-              onBlur={handleBlur}
             />
-            {/* error here */}
-            {/* error here */}
-            {errors?.category && (
-              <p className="text-red-500 ">{errors.category}</p>
-            )}
           </label>
           <label className="mb-4 flex flex-col w-full">
             <span className="mb-1 text-coolGray-800 font-medium">Content</span>
@@ -144,12 +129,7 @@ const UpdatePost = () => {
               name="content"
               value={formData.content}
               onChange={handleChange}
-              onBlur={handleBlur}
             />
-            {/* error here */}
-            {errors?.content && (
-              <p className="text-red-500 ">{errors.content}</p>
-            )}
           </label>
           {/* button */}
           {loading ? (
@@ -159,7 +139,7 @@ const UpdatePost = () => {
               className="mb-4 inline-block py-3 px-7 w-full leading-6 text-green-50 font-medium text-center bg-green-500 hover:bg-green-600 focus:ring-2 focus:ring-green-500 focus:ring-opacity-50 rounded-md"
               type="submit"
             >
-              Post
+              Update
             </button>
           )}
         </div>
