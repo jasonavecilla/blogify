@@ -114,6 +114,7 @@ const PostDetails = () => {
               createdAt={post?.post?.createdAt}
               readingTime={calculateReadingtime(post?.post?.content)}
               postId={post?.post?._id}
+              claps={post?.post?.claps}
             />
           </div>
           <div className="container px-4 mx-auto">

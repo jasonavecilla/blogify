@@ -1,6 +1,7 @@
 import React from "react";
 import { AiOutlineEye } from "react-icons/ai";
 import { RiEmotionLine } from "react-icons/ri";
+import { MdWavingHand } from "react-icons/md";
 import moment from "moment";
 import { useDispatch } from "react-redux";
 import {
@@ -16,6 +17,7 @@ const PostStats = ({
   readingTime,
   createdAt,
   postId,
+  claps,
 }) => {
   const timeSinceCreated = moment(createdAt).fromNow();
   const dispatch = useDispatch();
@@ -102,7 +104,11 @@ const PostStats = ({
 
         {dislikes}
       </button>
-
+      {/* claps */}
+      <button className="flex items-center gap-1 m-2 text-2xl text-gray-400">
+        <MdWavingHand />
+        {claps}
+      </button>
       <div className="flex items-center gap-1 m-2 text-2xl text-gray-400">
         <svg
           xmlns="http://www.w3.org/2000/svg"
