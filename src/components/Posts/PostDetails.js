@@ -31,10 +31,7 @@ const PostDetails = () => {
   const creator = post?.post?.author?._id?.toString();
   // //! get the login user
   const loginUser = userAuth?.userInfo?._id?.toString();
-  console.log({
-    creator,
-    loginUser,
-  });
+
   const isCreator = creator === loginUser;
 
   //! Delete post handler
@@ -116,6 +113,7 @@ const PostDetails = () => {
               totalComments={post?.post?.comments?.length}
               createdAt={post?.post?.createdAt}
               readingTime={calculateReadingtime(post?.post?.content)}
+              postId={post?.post?._id}
             />
           </div>
           <div className="container px-4 mx-auto">
