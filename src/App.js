@@ -10,6 +10,7 @@ import PublicPosts from "./components/Posts/PublicPosts";
 import AddPost from "./components/Posts/AddPost";
 import PostDetails from "./components/Posts/PostDetails";
 import PostLists from "./components/Posts/PostLists";
+import UpdatePost from "./components/Posts/UpdatePost";
 
 export default function App() {
   //! Get the login user from store
@@ -58,6 +59,16 @@ export default function App() {
           element={
             <ProctedRoute>
               <PostLists />
+            </ProctedRoute>
+          }
+        ></Route>
+
+        {/* update */}
+        <Route
+          path="/posts/:postId/update"
+          element={
+            <ProctedRoute>
+              <UpdatePost />
             </ProctedRoute>
           }
         ></Route>
