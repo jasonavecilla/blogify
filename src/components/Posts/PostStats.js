@@ -59,7 +59,7 @@ const PostStats = ({
           />
         </svg>
 
-        {views}
+        {views?.length}
       </div>
       {/* like post button */}
       <button

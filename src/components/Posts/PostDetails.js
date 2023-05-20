@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import {
   deletePostAction,
   getPostAction,
+  posViewsCounttAction,
 } from "../../redux/slices/posts/postsSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams, useNavigate, Link } from "react-router-dom";
@@ -26,6 +27,11 @@ const PostDetails = () => {
   useEffect(() => {
     dispatch(getPostAction(postId));
   }, [dispatch, postId, post?.post?.likes.length, post?.post?.dislikes.length]);
+
+  //! Post view count
+  useEffect(() => {
+    dispatch(posViewsCounttAction(postId));
+  }, [dispatch]);
 
   //! Get the creator of the post
   const creator = post?.post?.author?._id?.toString();
