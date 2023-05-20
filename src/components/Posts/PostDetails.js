@@ -10,6 +10,7 @@ import LoadingComponent from "../Alert/LoadingComponent";
 import ErrorMsg from "../Alert/ErrorMsg";
 import PostStats from "./PostStats";
 import calculateReadingtime from "../../utils/calculateReadingtime";
+import AddComment from "../Comments/AddComment";
 
 const PostDetails = () => {
   //! navigation
@@ -176,6 +177,7 @@ const PostDetails = () => {
               </h3>
 
               {/* Comment form */}
+              <AddComment />
             </div>
           </div>
         </section>
