@@ -5,6 +5,7 @@ import { MdWavingHand } from "react-icons/md";
 import moment from "moment";
 import { useDispatch, useSelector } from "react-redux";
 import {
+  clapPostAction,
   dislikePostAction,
   likePostAction,
 } from "../../redux/slices/posts/postsSlice";
@@ -21,14 +22,18 @@ const PostStats = ({
 }) => {
   const timeSinceCreated = moment(createdAt).fromNow();
   const dispatch = useDispatch();
-
   //! Like post handler
   const likepostHandler = () => {
     dispatch(likePostAction(postId));
   };
-
+  //! disLike post handler
   const dislikepostHandler = () => {
     dispatch(dislikePostAction(postId));
+  };
+
+  //! clap post handler
+  const clapPostHandler = () => {
+    dispatch(clapPostAction(postId));
   };
 
   return (
@@ -101,7 +106,10 @@ const PostStats = ({
         {dislikes}
       </button>
       {/* claps */}
-      <button className="flex items-center gap-1 m-2 text-2xl text-gray-400">
+      <button
+        onClick={clapPostHandler}
+        className="flex items-center gap-1 m-2 text-2xl text-gray-400"
+      >
         <MdWavingHand />
         {claps}
       </button>
