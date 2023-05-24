@@ -2,7 +2,6 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { useSelector } from "react-redux";
 import Homepage from "./components/Homepage/Homepage";
 import Login from "./components/Users/Login";
-import UserProfile from "./components/Users/UserProfile";
 import PublicNavbar from "./components/Navbar/PublicNavbar";
 import PrivateNavbar from "./components/Navbar/PrivateNavbar";
 import ProctedRoute from "./components/AuthRoute/ProctedRoute";
@@ -11,6 +10,7 @@ import AddPost from "./components/Posts/AddPost";
 import PostDetails from "./components/Posts/PostDetails";
 import PostLists from "./components/Posts/PostLists";
 import UpdatePost from "./components/Posts/UpdatePost";
+import PublicUserProfile from "./components/Users/PublicUserProfile";
 
 export default function App() {
   //! Get the login user from store
@@ -27,10 +27,10 @@ export default function App() {
 
         {/* profile */}
         <Route
-          path="/user-profile"
+          path="/user-public-profile/:userId"
           element={
             <ProctedRoute>
-              <UserProfile />
+              <PublicUserProfile />
             </ProctedRoute>
           }
         ></Route>

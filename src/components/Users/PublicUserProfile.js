@@ -20,7 +20,7 @@ const profile = {
   },
 };
 
-export default function UserProfile() {
+export default function PublicUserProfile() {
   return (
     <>
       <div className="flex h-full">
