@@ -1,9 +1,9 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import CommentsList from "./CommentLists";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { createCommentAction } from "../../redux/slices/comments/commentsSlice";
 
-const AddComment = ({ postId }) => {
+const AddComment = ({ postId, comments }) => {
   const [formData, setFormData] = useState({
     message: "",
   });
@@ -13,6 +13,14 @@ const AddComment = ({ postId }) => {
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
+  //! get comment from store
+  const { success } = useSelector((state) => state?.comments);
+  //reload
+  useEffect(() => {
+    if (success) {
+      window.location.reload();
+    }
+  }, [dispatch, success]);
   //! handle submit
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -72,7 +80,7 @@ const AddComment = ({ postId }) => {
         </div>
       </div>
       {/* comment lists */}
-      <CommentsList />
+      <CommentsList comments={comments} />
     </div>
   );
 };

@@ -53,6 +53,7 @@ const postSlice = createSlice({
       state.comment = action.payload;
       state.loading = false;
       state.error = null;
+      state.success = true;
     });
     builder.addCase(createCommentAction.rejected, (state, action) => {
       state.error = action.payload;
