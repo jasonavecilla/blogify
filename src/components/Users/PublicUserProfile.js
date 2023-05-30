@@ -1,3 +1,8 @@
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { useParams } from "react-router-dom";
+import { userPublicProfileAction } from "../../redux/slices/users/usersSlices";
+
 const profile = {
   name: "Ricardo Cooper",
   imageUrl:
@@ -21,6 +26,15 @@ const profile = {
 };
 
 export default function PublicUserProfile() {
+  // Get the id from params
+  const { userId } = useParams();
+  //! Get data from store
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(userPublicProfileAction(userId));
+  }, [userId, dispatch]);
+  const { profile, loading, error } = useSelector((state) => state?.users);
+
   return (
     <>
       <div className="flex h-full">

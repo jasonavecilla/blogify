@@ -58,6 +58,29 @@ export const registerAction = createAsyncThunk(
   }
 );
 
+//! Get User Public Profile Action
+export const userPublicProfileAction = createAsyncThunk(
+  "users/user-public-profile",
+  async (userId, { rejectWithValue, getState, dispatch }) => {
+    //make request
+    try {
+      const token = getState().users?.userAuth?.userInfo?.token;
+      const config = {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      };
+      const { data } = await axios.get(
+        `http://localhost:9080/api/v1/users/public-profile/${userId}`,
+        config
+      );
+      return data;
+    } catch (error) {
+      return rejectWithValue(error?.response?.data);
+    }
+  }
+);
+
 // ! Logout action
 export const logoutAction = createAsyncThunk("users/logout", async () => {
   //remove token from localstorage
@@ -73,19 +96,31 @@ const usersSlice = createSlice({
     builder.addCase(loginAction.pending, (state, action) => {
       state.loading = true;
     });
-    //handle fulfilled state
     builder.addCase(loginAction.fulfilled, (state, action) => {
       state.userAuth.userInfo = action.payload;
       state.success = true;
       state.loading = false;
       state.error = null;
     });
-    //* Handle the rejection
     builder.addCase(loginAction.rejected, (state, action) => {
       state.error = action.payload;
       state.loading = false;
     });
 
+    //get user public profile
+    builder.addCase(userPublicProfileAction.pending, (state, action) => {
+      state.loading = true;
+    });
+    builder.addCase(userPublicProfileAction.fulfilled, (state, action) => {
+      state.profile = action.payload;
+      state.success = true;
+      state.loading = false;
+      state.error = null;
+    });
+    builder.addCase(userPublicProfileAction.rejected, (state, action) => {
+      state.error = action.payload;
+      state.loading = false;
+    });
     //! Register
     builder.addCase(registerAction.pending, (state, action) => {
       state.loading = true;
