@@ -81,6 +81,30 @@ export const userPublicProfileAction = createAsyncThunk(
   }
 );
 
+//! Block User Action
+export const blockUserAction = createAsyncThunk(
+  "users/block-user",
+  async (userId, { rejectWithValue, getState, dispatch }) => {
+    //make request
+    try {
+      const token = getState().users?.userAuth?.userInfo?.token;
+      const config = {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      };
+      const { data } = await axios.put(
+        `http://localhost:9080/api/v1/users/block/${userId}`,
+        {},
+        config
+      );
+      return data;
+    } catch (error) {
+      return rejectWithValue(error?.response?.data);
+    }
+  }
+);
+
 // ! Logout action
 export const logoutAction = createAsyncThunk("users/logout", async () => {
   //remove token from localstorage
@@ -118,6 +142,21 @@ const usersSlice = createSlice({
       state.error = null;
     });
     builder.addCase(userPublicProfileAction.rejected, (state, action) => {
+      state.error = action.payload;
+      state.loading = false;
+    });
+
+    //block user
+    builder.addCase(blockUserAction.pending, (state, action) => {
+      state.loading = true;
+    });
+    builder.addCase(blockUserAction.fulfilled, (state, action) => {
+      state.profile = action.payload;
+      state.success = true;
+      state.loading = false;
+      state.error = null;
+    });
+    builder.addCase(blockUserAction.rejected, (state, action) => {
       state.error = action.payload;
       state.loading = false;
     });

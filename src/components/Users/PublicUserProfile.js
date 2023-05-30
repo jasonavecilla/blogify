@@ -1,7 +1,10 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
-import { userPublicProfileAction } from "../../redux/slices/users/usersSlices";
+import {
+  blockUserAction,
+  userPublicProfileAction,
+} from "../../redux/slices/users/usersSlices";
 import UserPosts from "./UserPosts";
 
 export default function PublicUserProfile() {
@@ -13,7 +16,10 @@ export default function PublicUserProfile() {
     dispatch(userPublicProfileAction(userId));
   }, [userId, dispatch]);
   const { profile, loading, error } = useSelector((state) => state?.users);
-
+  //Block user handler
+  const blockUserHandler = () => {
+    dispatch(blockUserAction(userId));
+  };
   return (
     <>
       <div className="flex h-full">
@@ -98,6 +104,7 @@ export default function PublicUserProfile() {
                           </button>
                           {/* Block */}
                           <button
+                            onClick={blockUserHandler}
                             type="button"
                             className="inline-flex justify-center gap-x-1.5 rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50"
                           >
