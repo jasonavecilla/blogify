@@ -2,6 +2,7 @@ import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import { userPublicProfileAction } from "../../redux/slices/users/usersSlices";
+import UserPosts from "./UserPosts";
 
 export default function PublicUserProfile() {
   // Get the id from params
@@ -12,7 +13,7 @@ export default function PublicUserProfile() {
     dispatch(userPublicProfileAction(userId));
   }, [userId, dispatch]);
   const { profile, loading, error } = useSelector((state) => state?.users);
-  console.log(profile);
+
   return (
     <>
       <div className="flex h-full">
@@ -185,13 +186,14 @@ export default function PublicUserProfile() {
                       </dd>
                     </div>
                   </dl>
-                  {/* users posts */}
                 </div>
               </article>
             </main>
           </div>
         </div>
       </div>
+      {/* Users posts */}
+      <UserPosts posts={profile?.user?.posts} />
     </>
   );
 }
