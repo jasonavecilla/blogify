@@ -11,6 +11,7 @@ import PostLists from "./components/Posts/PostLists";
 import UpdatePost from "./components/Posts/UpdatePost";
 import PublicUserProfile from "./components/Users/PublicUserProfile";
 import PrivateUserProfile from "./components/Users/PrivateUserProfile";
+import UploadProfileImage from "./components/Users/UploadProfileImage";
 
 export default function App() {
   //! Get the login user from store
@@ -59,6 +60,16 @@ export default function App() {
           element={
             <ProctedRoute>
               <PrivateUserProfile />
+            </ProctedRoute>
+          }
+        ></Route>
+
+        {/* private upload prifile image */}
+        <Route
+          path="/upload-profile-image"
+          element={
+            <ProctedRoute>
+              <UploadProfileImage />
             </ProctedRoute>
           }
         ></Route>

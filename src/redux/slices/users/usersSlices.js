@@ -221,7 +221,7 @@ export const uploadCoverImageAction = createAsyncThunk(
           Authorization: `Bearer ${token}`,
         },
       };
-      const { data } = await axios.post(
+      const { data } = await axios.put(
         "http://localhost:9080/api/v1/users/upload-cover-image",
         formData,
         config
@@ -247,7 +247,7 @@ export const uploadProfileImageAction = createAsyncThunk(
           Authorization: `Bearer ${token}`,
         },
       };
-      const { data } = await axios.post(
+      const { data } = await axios.put(
         "http://localhost:9080/api/v1/users/upload-profile-image",
         formData,
         config
