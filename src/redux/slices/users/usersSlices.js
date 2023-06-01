@@ -152,6 +152,54 @@ export const unBlockUserAction = createAsyncThunk(
   }
 );
 
+//!Follow User Action
+export const followUserAction = createAsyncThunk(
+  "users/follow-user",
+  async (userId, { rejectWithValue, getState, dispatch }) => {
+    //make request
+    try {
+      const token = getState().users?.userAuth?.userInfo?.token;
+      const config = {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      };
+      const { data } = await axios.put(
+        `http://localhost:9080/api/v1/users/following/${userId}`,
+        {},
+        config
+      );
+      return data;
+    } catch (error) {
+      return rejectWithValue(error?.response?.data);
+    }
+  }
+);
+
+//!UnFollow User Action
+export const unFollowUserAction = createAsyncThunk(
+  "users/unfollow-user",
+  async (userId, { rejectWithValue, getState, dispatch }) => {
+    //make request
+    try {
+      const token = getState().users?.userAuth?.userInfo?.token;
+      const config = {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      };
+      const { data } = await axios.put(
+        `http://localhost:9080/api/v1/users/unfollowing/${userId}`,
+        {},
+        config
+      );
+      return data;
+    } catch (error) {
+      return rejectWithValue(error?.response?.data);
+    }
+  }
+);
+
 // ! Logout action
 export const logoutAction = createAsyncThunk("users/logout", async () => {
   //remove token from localstorage
@@ -234,6 +282,35 @@ const usersSlice = createSlice({
       state.error = null;
     });
     builder.addCase(unBlockUserAction.rejected, (state, action) => {
+      state.error = action.payload;
+      state.loading = false;
+    });
+
+    //follow user
+    builder.addCase(followUserAction.pending, (state, action) => {
+      state.loading = true;
+    });
+    builder.addCase(followUserAction.fulfilled, (state, action) => {
+      state.profile = action.payload;
+      state.success = true;
+      state.loading = false;
+      state.error = null;
+    });
+    builder.addCase(followUserAction.rejected, (state, action) => {
+      state.error = action.payload;
+      state.loading = false;
+    });
+    //unfollow user
+    builder.addCase(unFollowUserAction.pending, (state, action) => {
+      state.loading = true;
+    });
+    builder.addCase(unFollowUserAction.fulfilled, (state, action) => {
+      state.profile = action.payload;
+      state.success = true;
+      state.loading = false;
+      state.error = null;
+    });
+    builder.addCase(unFollowUserAction.rejected, (state, action) => {
       state.error = action.payload;
       state.loading = false;
     });

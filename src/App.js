@@ -5,12 +5,12 @@ import Login from "./components/Users/Login";
 import PublicNavbar from "./components/Navbar/PublicNavbar";
 import PrivateNavbar from "./components/Navbar/PrivateNavbar";
 import ProctedRoute from "./components/AuthRoute/ProctedRoute";
-import PublicPosts from "./components/Posts/PublicPosts";
 import AddPost from "./components/Posts/AddPost";
 import PostDetails from "./components/Posts/PostDetails";
 import PostLists from "./components/Posts/PostLists";
 import UpdatePost from "./components/Posts/UpdatePost";
 import PublicUserProfile from "./components/Users/PublicUserProfile";
+import PrivateUserProfile from "./components/Users/PrivateUserProfile";
 
 export default function App() {
   //! Get the login user from store
@@ -53,6 +53,15 @@ export default function App() {
           }
         ></Route>
 
+        {/* private user profile */}
+        <Route
+          path="/user-profile"
+          element={
+            <ProctedRoute>
+              <PrivateUserProfile />
+            </ProctedRoute>
+          }
+        ></Route>
         {/* post details */}
         <Route
           path="/posts"
