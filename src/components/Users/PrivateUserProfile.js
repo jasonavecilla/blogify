@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import UserPosts from "./UserPosts";
 import Followers from "./Followers";
+import { Link } from "react-router-dom";
 const profile = {
   name: "Ricardo Cooper",
   imageUrl:
@@ -51,15 +52,17 @@ export default function PrivateUserProfile() {
                     <div>
                       <img
                         className="object-cover w-full h-32 lg:h-48"
-                        src="https://images.unsplash.com/photo-1463453091185-61582044d556?ixlib=rb-=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=8&w=1024&h=1024&q=80"
-                        alt=""
+                        src={profile?.user?.coverImage}
+                        alt={profile?.user?.username}
                       />
 
                       <label
                         htmlFor="coverImageInput"
                         className="cursor-pointer"
                       >
-                        <AiFillCamera className="absolute top-0  right-0 w-6 h-6 m-4 text-gray-200" />
+                        <Link to="/upload-cover-image">
+                          <AiFillCamera className="absolute top-0  right-0 w-6 h-6 m-4 text-gray-200" />
+                        </Link>
                       </label>
                     </div>
                   </div>
@@ -70,14 +73,16 @@ export default function PrivateUserProfile() {
                       <div className="relative flex items-center justify-center">
                         <img
                           className="w-24 h-24 rounded-full ring-4 ring-white sm:h-32 sm:w-32"
-                          src="https://images.unsplash.com/photo-1463453091185-61582044d556?ixlib=rb-=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=8&w=1024&h=1024&q=80"
-                          alt=""
+                          src={profile?.user?.profilePicture}
+                          alt={profile?.user?.username}
                         />
                         <label
                           htmlFor="profileImageInput"
                           className="absolute bottom-0 right-0 cursor-pointer"
                         >
-                          <AiFillCamera className="w-6 h-6 m-1 text-gray-500" />
+                          <Link to="/upload-profile-image">
+                            <AiFillCamera className="w-6 h-6 m-1 text-gray-500" />
+                          </Link>
                         </label>
                       </div>
 

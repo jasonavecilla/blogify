@@ -3,9 +3,9 @@ import { useDispatch, useSelector } from "react-redux";
 import LoadingComponent from "../Alert/LoadingComponent";
 import ErrorMsg from "../Alert/ErrorMsg";
 import SuccesMsg from "../Alert/SuccesMsg";
-import { uploadProfileImageAction } from "../../redux/slices/users/usersSlices";
+import { uploadCoverImageAction } from "../../redux/slices/users/usersSlices";
 
-const UploadProfileImage = () => {
+const UploadCoverImage = () => {
   //fetch categories
   const dispatch = useDispatch();
   //! Error state
@@ -43,7 +43,7 @@ const UploadProfileImage = () => {
     const errors = validateForm(formData);
     setErrors(errors);
     if (Object.keys(errors).length === 0) {
-      dispatch(uploadProfileImageAction(formData));
+      dispatch(uploadCoverImageAction(formData));
       e.preventDefault();
     }
   };
@@ -53,13 +53,13 @@ const UploadProfileImage = () => {
       <form onSubmit={handleSubmit} className="w-full lg:w-1/2">
         <div className="flex flex-col items-center p-10 xl:px-24 xl:pb-12 bg-white lg:max-w-xl lg:ml-auto rounded-4xl shadow-2xl">
           <h2 className="mb-4 text-2xl md:text-3xl text-coolGray-900 font-bold text-center">
-            Upload Profile Image
+            Upload Cover Image
           </h2>
           {/* error */}
           {error && <ErrorMsg message={error?.message} />}
           {success && <SuccesMsg message="Image uploaded successfully" />}
           <h3 className="mb-7 text-base md:text-lg text-coolGray-500 font-medium text-center">
-            Upload or update Profile Image
+            Upload or update Cover Image
           </h3>
 
           <label className="mb-4 flex flex-col w-full">
@@ -92,4 +92,4 @@ const UploadProfileImage = () => {
   );
 };
 
-export default UploadProfileImage;
+export default UploadCoverImage;

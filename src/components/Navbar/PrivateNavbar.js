@@ -5,13 +5,14 @@ import { PlusIcon } from "@heroicons/react/20/solid";
 import { Link } from "react-router-dom";
 import { FaBlog } from "react-icons/fa";
 import { logoutAction } from "../../redux/slices/users/usersSlices";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
 }
 
 export default function PrivateNavbar() {
+  const { profile } = useSelector((state) => state?.users);
   //!dispatch
   const dispatch = useDispatch();
   const logoutHandler = () => {
@@ -76,8 +77,8 @@ export default function PrivateNavbar() {
                         <span className="sr-only">Open user menu</span>
                         <img
                           className="h-8 w-8 rounded-full"
-                          src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
-                          alt=""
+                          src={profile?.user?.profilePicture}
+                          alt={profile?.user?.username}
                         />
                       </Menu.Button>
                     </div>

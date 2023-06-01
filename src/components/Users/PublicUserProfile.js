@@ -70,8 +70,8 @@ export default function PublicUserProfile() {
                   <div>
                     <img
                       className="h-32 w-full object-cover lg:h-48"
-                      src="https://images.unsplash.com/photo-1463453091185-61582044d556?ixlib=rb-=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=8&w=1024&h=1024&q=80"
-                      alt=""
+                      src={profile?.user?.coverImage}
+                      alt={profile?.user?.username}
                     />
                   </div>
 
@@ -80,8 +80,8 @@ export default function PublicUserProfile() {
                       <div className="flex">
                         <img
                           className="h-24 w-24 rounded-full ring-4 ring-white sm:h-32 sm:w-32"
-                          src="https://images.unsplash.com/photo-1463453091185-61582044d556?ixlib=rb-=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=8&w=1024&h=1024&q=80"
-                          alt=""
+                          src={profile?.user?.profilePicture}
+                          alt={profile?.user?.username}
                         />
                       </div>
                       <div className="mt-6 sm:flex sm:min-w-0 sm:flex-1 sm:items-center sm:justify-end sm:space-x-6 sm:pb-1">
