@@ -13,6 +13,7 @@ const INITIAL_STATE = {
   users: [],
   user: null,
   success: false,
+  isverified: false,
   profile: {},
   isEmailSent: false,
   userAuth: {
@@ -283,6 +284,30 @@ export const sendAccVerificationEmailAction = createAsyncThunk(
     }
   }
 );
+
+//! verify account Action
+export const verifyAccountAction = createAsyncThunk(
+  "users/account-verified",
+  async (verifyToken, { rejectWithValue, getState, dispatch }) => {
+    //make request
+    try {
+      const token = getState().users?.userAuth?.userInfo?.token;
+      const config = {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      };
+      const { data } = await axios.get(
+        `http://localhost:9080/api/v1/users/account-verification/${verifyToken}`,
+        config
+      );
+      return data;
+    } catch (error) {
+      return rejectWithValue(error?.response?.data);
+    }
+  }
+);
+
 //! Users slices
 const usersSlice = createSlice({
   name: "users",
@@ -381,6 +406,21 @@ const usersSlice = createSlice({
         state.loading = false;
       }
     );
+
+    //Verify Account
+    builder.addCase(verifyAccountAction.pending, (state, action) => {
+      state.loading = true;
+    });
+    builder.addCase(verifyAccountAction.fulfilled, (state, action) => {
+      state.isverified = true;
+      state.loading = false;
+      state.error = null;
+    });
+    builder.addCase(verifyAccountAction.rejected, (state, action) => {
+      state.error = action.payload;
+      state.loading = false;
+    });
+
     //block user
     builder.addCase(blockUserAction.pending, (state, action) => {
       state.loading = true;
