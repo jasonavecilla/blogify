@@ -10,6 +10,7 @@ import { useEffect } from "react";
 import UserPosts from "./UserPosts";
 import Followers from "./Followers";
 import { Link } from "react-router-dom";
+import SuccesMsg from "../Alert/SuccesMsg";
 
 export default function PrivateUserProfile() {
   //! Get data from store
@@ -19,7 +20,7 @@ export default function PrivateUserProfile() {
     dispatch(userPrivateProfileAction());
   }, [dispatch]);
 
-  const { user, loading, error, profile, userAuth } = useSelector(
+  const { user, loading, error, profile, userAuth, isEmailSent } = useSelector(
     (state) => state?.users
   );
   // ! Send acc verification email handler
@@ -28,6 +29,10 @@ export default function PrivateUserProfile() {
   };
   return (
     <>
+      {/* success msg */}
+      {isEmailSent && (
+        <SuccesMsg message="Email successfully sent, check your email" />
+      )}
       <div className="flex h-full">
         <div className="flex flex-col flex-1 min-w-0 overflow-hidden">
           <div className="relative z-0 flex flex-1 overflow-hidden">

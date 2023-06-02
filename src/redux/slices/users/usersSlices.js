@@ -14,6 +14,7 @@ const INITIAL_STATE = {
   user: null,
   success: false,
   profile: {},
+  isEmailSent: false,
   userAuth: {
     error: null,
     userInfo: localStorage.getItem("userInfo")
@@ -368,8 +369,7 @@ const usersSlice = createSlice({
     builder.addCase(
       sendAccVerificationEmailAction.fulfilled,
       (state, action) => {
-        state.userAuth = action.payload;
-        state.success = true;
+        state.isEmailSent = true;
         state.loading = false;
         state.error = null;
       }
