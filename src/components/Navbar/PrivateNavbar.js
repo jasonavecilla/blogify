@@ -12,7 +12,7 @@ function classNames(...classes) {
 }
 
 export default function PrivateNavbar() {
-  const { profile } = useSelector((state) => state?.users);
+  const { profile, userAuth } = useSelector((state) => state?.users);
   //!dispatch
   const dispatch = useDispatch();
   const logoutHandler = () => {
@@ -77,8 +77,8 @@ export default function PrivateNavbar() {
                         <span className="sr-only">Open user menu</span>
                         <img
                           className="h-8 w-8 rounded-full"
-                          src={profile?.user?.profilePicture}
-                          alt={profile?.user?.username}
+                          src={userAuth?.userInfo?.profilePicture}
+                          alt={userAuth?.userInfo?.username}
                         />
                       </Menu.Button>
                     </div>
