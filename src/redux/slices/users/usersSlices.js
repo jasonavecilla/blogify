@@ -258,7 +258,30 @@ export const uploadProfileImageAction = createAsyncThunk(
     }
   }
 );
-
+//
+//! Send Account verification email Action
+export const sendAccVerificationEmailAction = createAsyncThunk(
+  "users/send-account-verification-email",
+  async (userId, { rejectWithValue, getState, dispatch }) => {
+    //make request
+    try {
+      const token = getState().users?.userAuth?.userInfo?.token;
+      const config = {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      };
+      const { data } = await axios.put(
+        `http://localhost:9080/api/v1/users/account-verification-email`,
+        {},
+        config
+      );
+      return data;
+    } catch (error) {
+      return rejectWithValue(error?.response?.data);
+    }
+  }
+);
 //! Users slices
 const usersSlice = createSlice({
   name: "users",
@@ -338,6 +361,26 @@ const usersSlice = createSlice({
       state.loading = false;
     });
 
+    //Send Account verification email
+    builder.addCase(sendAccVerificationEmailAction.pending, (state, action) => {
+      state.loading = true;
+    });
+    builder.addCase(
+      sendAccVerificationEmailAction.fulfilled,
+      (state, action) => {
+        state.userAuth = action.payload;
+        state.success = true;
+        state.loading = false;
+        state.error = null;
+      }
+    );
+    builder.addCase(
+      sendAccVerificationEmailAction.rejected,
+      (state, action) => {
+        state.error = action.payload;
+        state.loading = false;
+      }
+    );
     //block user
     builder.addCase(blockUserAction.pending, (state, action) => {
       state.loading = true;

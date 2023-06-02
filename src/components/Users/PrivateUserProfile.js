@@ -1,7 +1,10 @@
 import { AiFillCamera } from "react-icons/ai";
 import { ExclamationTriangleIcon } from "@heroicons/react/20/solid";
 
-import { userPrivateProfileAction } from "../../redux/slices/users/usersSlices";
+import {
+  sendAccVerificationEmailAction,
+  userPrivateProfileAction,
+} from "../../redux/slices/users/usersSlices";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import UserPosts from "./UserPosts";
@@ -19,7 +22,10 @@ export default function PrivateUserProfile() {
   const { user, loading, error, profile, userAuth } = useSelector(
     (state) => state?.users
   );
-
+  // ! Send acc verification email handler
+  const sendAccVerificationEmailHandler = () => {
+    dispatch(sendAccVerificationEmailAction());
+  };
   return (
     <>
       <div className="flex h-full">
@@ -76,7 +82,10 @@ export default function PrivateUserProfile() {
                         {/* Warning */}
 
                         {!userAuth?.userInfo?.isVerified && (
-                          <button className="rounded-md mt-6 bg-yellow-50 p-4">
+                          <button
+                            onClick={sendAccVerificationEmailHandler}
+                            className="rounded-md mt-6 bg-yellow-50 p-4"
+                          >
                             <div className="flex">
                               <div className="flex-shrink-0">
                                 <ExclamationTriangleIcon
