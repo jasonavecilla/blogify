@@ -14,6 +14,7 @@ import PrivateUserProfile from "./components/Users/PrivateUserProfile";
 import UploadProfileImage from "./components/Users/UploadProfileImage";
 import UploadCoverImage from "./components/Users/UploadCoverImage";
 import AccountVerification from "./components/Users/AccountVerification";
+import PasswordResetRequest from "./components/Users/PasswordResetRequest";
 
 export default function App() {
   //! Get the login user from store
@@ -54,6 +55,11 @@ export default function App() {
               <PostDetails />
             </ProctedRoute>
           }
+        ></Route>
+        {/* forgot password */}
+        <Route
+          path="/forgot-password"
+          element={<PasswordResetRequest />}
         ></Route>
 
         {/* private user profile */}
