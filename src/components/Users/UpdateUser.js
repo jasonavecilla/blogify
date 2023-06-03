@@ -2,12 +2,14 @@ import React, { useState } from "react";
 import { AiOutlineUser, AiOutlineMail } from "react-icons/ai";
 import { useDispatch, useSelector } from "react-redux";
 import "tailwindcss/tailwind.css";
+import { updateUserProfileAction } from "../../redux/slices/users/usersSlices";
 
 const UpdateUser = () => {
   //! Dispatch
   const dispatch = useDispatch();
   const [formData, setFormData] = useState({
-    password: "",
+    email: "",
+    username: "",
   });
   //handle form change
   const handleChange = (e) => {
@@ -15,17 +17,19 @@ const UpdateUser = () => {
   };
   //handle form submit
   const handleSubmit = (e) => {
+    console.log(formData);
     e.preventDefault();
     //!dispatch
-    // dispatch(
-    //   passwordResetAction({
-    //     password: formData.password,
-    //     resetToken: token,
-    //   })
-    // );
+    dispatch(
+      updateUserProfileAction({
+        username: formData.username,
+        email: formData.email,
+      })
+    );
     // reset form
     setFormData({
-      password: "",
+      username: "",
+      email: "",
     });
   };
   //store data
@@ -62,7 +66,10 @@ const UpdateUser = () => {
             className="pl-10 pr-4 py-2 w-full border border-gray-300 rounded-lg focus:outline-none focus:border-blue-500"
           />
         </div>
-        <button className="w-full px-4 py-2 text-white bg-blue-600 rounded-lg hover:bg-blue-700 focus:outline-none">
+        <button
+          type="submit"
+          className="w-full px-4 py-2 text-white bg-blue-600 rounded-lg hover:bg-blue-700 focus:outline-none"
+        >
           Update Profile
         </button>
       </div>

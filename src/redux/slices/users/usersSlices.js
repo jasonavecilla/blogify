@@ -348,6 +348,32 @@ export const passwordResetAction = createAsyncThunk(
     }
   }
 );
+
+//! update user profile Action
+export const updateUserProfileAction = createAsyncThunk(
+  "users/update-user-profile",
+  async (payload, { rejectWithValue, getState, dispatch }) => {
+    //make request
+    console.log(payload);
+    try {
+      const token = getState().users?.userAuth?.userInfo?.token;
+      const config = {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      };
+      const { data } = await axios.put(
+        `http://localhost:9080/api/v1/users/update-profile/`,
+        payload,
+        config
+      );
+      return data;
+    } catch (error) {
+      return rejectWithValue(error?.response?.data);
+    }
+  }
+);
+
 //! Users slices
 const usersSlice = createSlice({
   name: "users",
@@ -415,6 +441,21 @@ const usersSlice = createSlice({
     //get user private profile
     builder.addCase(userPrivateProfileAction.pending, (state, action) => {
       state.loading = true;
+    });
+
+    //Update user profile
+    builder.addCase(updateUserProfileAction.pending, (state, action) => {
+      state.loading = true;
+    });
+    builder.addCase(updateUserProfileAction.fulfilled, (state, action) => {
+      state.user = action.payload;
+      state.success = true;
+      state.loading = false;
+      state.error = null;
+    });
+    builder.addCase(updateUserProfileAction.rejected, (state, action) => {
+      state.error = action.payload;
+      state.loading = false;
     });
     builder.addCase(userPrivateProfileAction.fulfilled, (state, action) => {
       state.profile = action.payload;
