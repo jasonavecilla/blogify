@@ -3,6 +3,9 @@ import { AiOutlineLock } from "react-icons/ai";
 import { useDispatch, useSelector } from "react-redux";
 import { passwordResetAction } from "../../redux/slices/users/usersSlices";
 import { useParams } from "react-router-dom";
+import LoadingComponent from "../Alert/LoadingComponent";
+import SuccesMsg from "../Alert/SuccesMsg";
+import ErrorMsg from "../Alert/ErrorMsg";
 
 export const PasswordReset = () => {
   // Get the reset token from params
@@ -43,6 +46,11 @@ export const PasswordReset = () => {
         <h1 className="text-3xl font-bold text-gray-700 text-center mb-6">
           Reset your password
         </h1>
+        {success && (
+          <SuccesMsg message="Password Reset Was successful, login with yiur new password" />
+        )}
+
+        {error && <ErrorMsg message={error?.message} />}
         <div className="mb-4 relative">
           <AiOutlineLock className="absolute text-gray-500 text-2xl top-2 left-2" />
           <input
@@ -54,9 +62,13 @@ export const PasswordReset = () => {
             className="pl-10 pr-4 py-2 w-full border border-gray-300 rounded-lg focus:outline-none focus:border-blue-500"
           />
         </div>
-        <button className="w-full px-4 py-2 text-white bg-blue-600 rounded-lg hover:bg-blue-700 focus:outline-none">
-          Reset Password
-        </button>
+        {loading ? (
+          <LoadingComponent />
+        ) : (
+          <button className="w-full px-4 py-2 text-white bg-blue-600 rounded-lg hover:bg-blue-700 focus:outline-none">
+            Reset Password
+          </button>
+        )}
       </div>
     </form>
   );
