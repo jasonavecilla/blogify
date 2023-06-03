@@ -14,6 +14,7 @@ const INITIAL_STATE = {
   user: null,
   success: false,
   isverified: false,
+  emailMessage: undefined,
   profile: {},
   isEmailSent: false,
   userAuth: {
@@ -458,7 +459,8 @@ const usersSlice = createSlice({
       state.loading = true;
     });
     builder.addCase(forgotPasswordAction.fulfilled, (state, action) => {
-      state.isEmailSent = action.payload;
+      state.isEmailSent = true;
+      state.emailMessage = action.payload;
       state.success = true;
       state.loading = false;
       state.error = null;

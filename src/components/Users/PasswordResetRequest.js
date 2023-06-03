@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import { AiOutlineMail } from "react-icons/ai";
 import { useDispatch, useSelector } from "react-redux";
 import { forgotPasswordAction } from "../../redux/slices/users/usersSlices";
+import LoadingComponent from "../Alert/LoadingComponent";
+import SuccesMsg from "../Alert/SuccesMsg";
 
 const PasswordResetRequest = () => {
   //! Dispatch
@@ -28,7 +30,9 @@ const PasswordResetRequest = () => {
     });
   };
   //store data
-  const { loading, error, isEmailSent } = useSelector((state) => state?.users);
+  const { loading, error, isEmailSent, emailMessage } = useSelector(
+    (state) => state?.users
+  );
   return (
     <form
       onSubmit={handleSubmit}
@@ -42,6 +46,15 @@ const PasswordResetRequest = () => {
           Enter your email address and we'll send you a link to reset your
           password.
         </p>
+        {error && (
+          <p className="text-red-600 text-center mb-6">{error?.message}</p>
+        )}
+        {/* show success message */}
+        {isEmailSent && (
+          <p className="text-green-600 text-center mb-6">
+            {emailMessage?.message}
+          </p>
+        )}
         <div className="mb-6 relative">
           <AiOutlineMail className="absolute text-gray-500 text-2xl top-2 left-2" />
           <input
@@ -53,9 +66,13 @@ const PasswordResetRequest = () => {
             className="pl-10 pr-4 py-2 w-full border border-gray-300 rounded-lg focus:outline-none focus:border-blue-500"
           />
         </div>
-        <button className="w-full px-4 py-2 text-white bg-blue-600 rounded-lg hover:bg-blue-700 focus:outline-none">
-          Send reset link
-        </button>
+        {loading ? (
+          <LoadingComponent />
+        ) : (
+          <button className="w-full px-4 py-2 text-white bg-blue-600 rounded-lg hover:bg-blue-700 focus:outline-none">
+            Send reset link
+          </button>
+        )}
       </div>
     </form>
   );
