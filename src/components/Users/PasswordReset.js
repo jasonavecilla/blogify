@@ -1,10 +1,11 @@
 import React, { useState } from "react";
 import { AiOutlineLock } from "react-icons/ai";
 import { useDispatch, useSelector } from "react-redux";
-import { resetPasswordAction } from "../../redux/slices/users/usersSlices";
+import { passwordResetAction } from "../../redux/slices/users/usersSlices";
 import { useParams } from "react-router-dom";
+
 export const PasswordReset = () => {
-  //get the reset token from params
+  // Get the reset token from params
   const { token } = useParams();
   //! Dispatch
   const dispatch = useDispatch();
@@ -20,7 +21,7 @@ export const PasswordReset = () => {
     e.preventDefault();
     //!dispatch
     dispatch(
-      resetPasswordAction({
+      passwordResetAction({
         password: formData.password,
         resetToken: token,
       })
@@ -31,9 +32,7 @@ export const PasswordReset = () => {
     });
   };
   //store data
-  const { loading, error, isEmailSent, emailMessage } = useSelector(
-    (state) => state?.users
-  );
+  const { loading, error, success } = useSelector((state) => state?.users);
 
   return (
     <form
@@ -55,21 +54,9 @@ export const PasswordReset = () => {
             className="pl-10 pr-4 py-2 w-full border border-gray-300 rounded-lg focus:outline-none focus:border-blue-500"
           />
         </div>
-        {token ? (
-          <button
-            type="submit"
-            className="w-full px-4 py-2 text-white bg-blue-600 rounded-lg hover:bg-blue-700 focus:outline-none"
-          >
-            Reset Password
-          </button>
-        ) : (
-          <button
-            disabled
-            className="w-full px-4 py-2 text-white bg-gray-600 rounded-lg "
-          >
-            Please wait...
-          </button>
-        )}
+        <button className="w-full px-4 py-2 text-white bg-blue-600 rounded-lg hover:bg-blue-700 focus:outline-none">
+          Reset Password
+        </button>
       </div>
     </form>
   );
