@@ -3,6 +3,9 @@ import { AiOutlineUser, AiOutlineMail } from "react-icons/ai";
 import { useDispatch, useSelector } from "react-redux";
 import "tailwindcss/tailwind.css";
 import { updateUserProfileAction } from "../../redux/slices/users/usersSlices";
+import LoadingComponent from "../Alert/LoadingComponent";
+import ErrorMsg from "../Alert/ErrorMsg";
+import SuccesMsg from "../Alert/SuccesMsg";
 
 const UpdateUser = () => {
   //! Dispatch
@@ -44,6 +47,8 @@ const UpdateUser = () => {
         <h1 className="text-3xl font-bold text-gray-700 text-center mb-6">
           Update your Profile
         </h1>
+        {error && <ErrorMsg message={error?.message} />}
+        {success && <SuccesMsg message="Profile updated, login back again" />}
         <div className="mb-4 relative">
           <AiOutlineUser className="absolute text-gray-500 text-2xl top-2 left-2" />
           <input
@@ -66,12 +71,16 @@ const UpdateUser = () => {
             className="pl-10 pr-4 py-2 w-full border border-gray-300 rounded-lg focus:outline-none focus:border-blue-500"
           />
         </div>
-        <button
-          type="submit"
-          className="w-full px-4 py-2 text-white bg-blue-600 rounded-lg hover:bg-blue-700 focus:outline-none"
-        >
-          Update Profile
-        </button>
+        {loading ? (
+          <LoadingComponent />
+        ) : (
+          <button
+            type="submit"
+            className="w-full px-4 py-2 text-white bg-blue-600 rounded-lg hover:bg-blue-700 focus:outline-none"
+          >
+            Update Profile
+          </button>
+        )}
       </div>
     </form>
   );
