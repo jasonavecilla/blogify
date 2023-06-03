@@ -1,7 +1,11 @@
 import React, { useState } from "react";
 import { AiOutlineLock } from "react-icons/ai";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { resetPasswordAction } from "../../redux/slices/users/usersSlices";
+import { useParams } from "react-router-dom";
 export const PasswordReset = () => {
+  //get the reset token from params
+  const { token } = useParams();
   //! Dispatch
   const dispatch = useDispatch();
   const [formData, setFormData] = useState({
@@ -15,11 +19,12 @@ export const PasswordReset = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     //!dispatch
-    // dispatch(
-    //   forgotPasswordAction({
-    //     email: formData.email,
-    //   })
-    // );
+    dispatch(
+      resetPasswordAction({
+        password: formData.password,
+        resetToken: token,
+      })
+    );
     // reset form
     setFormData({
       password: "",
@@ -42,7 +47,7 @@ export const PasswordReset = () => {
         <div className="mb-4 relative">
           <AiOutlineLock className="absolute text-gray-500 text-2xl top-2 left-2" />
           <input
-            name="email"
+            name="password"
             value={formData.password}
             onChange={handleChange}
             type="password"
@@ -50,9 +55,21 @@ export const PasswordReset = () => {
             className="pl-10 pr-4 py-2 w-full border border-gray-300 rounded-lg focus:outline-none focus:border-blue-500"
           />
         </div>
-        <button className="w-full px-4 py-2 text-white bg-blue-600 rounded-lg hover:bg-blue-700 focus:outline-none">
-          Reset Password
-        </button>
+        {token ? (
+          <button
+            type="submit"
+            className="w-full px-4 py-2 text-white bg-blue-600 rounded-lg hover:bg-blue-700 focus:outline-none"
+          >
+            Reset Password
+          </button>
+        ) : (
+          <button
+            disabled
+            className="w-full px-4 py-2 text-white bg-gray-600 rounded-lg "
+          >
+            Please wait...
+          </button>
+        )}
       </div>
     </form>
   );

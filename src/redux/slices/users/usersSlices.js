@@ -327,6 +327,29 @@ export const forgotPasswordAction = createAsyncThunk(
     }
   }
 );
+
+//! reset password Action
+export const resetPasswordAction = createAsyncThunk(
+  "users/reset-password",
+  async (payload, { rejectWithValue, getState, dispatch }) => {
+    console.log(payload);
+    //make request
+    try {
+      const { data } = await axios.post(
+        `http://localhost:9080/api/v1/users/reset-password/${payload?.resetToken}`,
+        {
+          password: payload?.password,
+        }
+      );
+      //! save the user into localstorage
+      localStorage.setItem("userInfo", JSON.stringify(data));
+      return data;
+    } catch (error) {
+      return rejectWithValue(error?.response?.data);
+    }
+  }
+);
+
 //! Users slices
 const usersSlice = createSlice({
   name: "users",
@@ -516,15 +539,28 @@ const usersSlice = createSlice({
     builder.addCase(registerAction.pending, (state, action) => {
       state.loading = true;
     });
-    //handle fulfilled state
     builder.addCase(registerAction.fulfilled, (state, action) => {
       state.user = action.payload;
       state.success = true;
       state.loading = false;
       state.error = null;
     });
-    //* Handle the rejection
     builder.addCase(registerAction.rejected, (state, action) => {
+      state.error = action.payload;
+      state.loading = false;
+    });
+
+    //! reset-password
+    builder.addCase(resetPasswordAction.pending, (state, action) => {
+      state.loading = true;
+    });
+    builder.addCase(resetPasswordAction.fulfilled, (state, action) => {
+      state.user = action.payload;
+      state.success = true;
+      state.loading = false;
+      state.error = null;
+    });
+    builder.addCase(resetPasswordAction.rejected, (state, action) => {
       state.error = action.payload;
       state.loading = false;
     });
