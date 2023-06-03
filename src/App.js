@@ -16,6 +16,7 @@ import UploadCoverImage from "./components/Users/UploadCoverImage";
 import AccountVerification from "./components/Users/AccountVerification";
 import PasswordResetRequest from "./components/Users/PasswordResetRequest";
 import PasswordReset from "./components/Users/PasswordReset";
+import UpdateUser from "./components/Users/UpdateUser";
 
 export default function App() {
   //! Get the login user from store
@@ -54,6 +55,15 @@ export default function App() {
           element={
             <ProctedRoute>
               <PostDetails />
+            </ProctedRoute>
+          }
+        ></Route>
+
+        <Route
+          path="/update-profile"
+          element={
+            <ProctedRoute>
+              <UpdateUser />
             </ProctedRoute>
           }
         ></Route>
