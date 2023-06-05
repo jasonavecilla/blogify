@@ -6,6 +6,7 @@ import {
 } from "../../redux/slices/posts/postsSlice";
 import LoadingComponent from "../Alert/LoadingComponent";
 import { Link } from "react-router-dom";
+import { fetchCategoriesAction } from "../../redux/slices/categories/categoriesSlice";
 
 const PostLists = () => {
   //! redux store
@@ -16,10 +17,15 @@ const PostLists = () => {
   //Pagination/search term state
   const [page, setPage] = useState(1);
   const [searchTerm, setSearchTerm] = useState("");
-  //dispatch
+  const [category, setCategory] = useState("");
+
+  //dispatch fetching posts
   useEffect(() => {
-    dispatch(fetchPrivatePostsAction({ page, limit: 2, searchTerm }));
-  }, [dispatch, page, searchTerm]);
+    dispatch(fetchPrivatePostsAction({ page, limit: 2, searchTerm, category }));
+    dispatch(fetchCategoriesAction());
+  }, [dispatch, page, searchTerm, category]);
+
+  const { categories } = useSelector((state) => state?.categories);
 
   const handleNext = () => setPage(page + 1);
   const handlePrev = () => setPage(page > 1 ? page - 1 : 1);
@@ -52,7 +58,19 @@ const PostLists = () => {
                 onChange={(e) => setSearchTerm(e.target.value)}
               />
             </div>
-
+            {/* Categories */}
+            <div>
+              {categories?.categories?.map((category) => {
+                return (
+                  <button
+                    onClick={() => setCategory(category?._id)}
+                    key={category?._id}
+                  >
+                    {category?.name}
+                  </button>
+                );
+              })}
+            </div>
             <div className="flex flex-wrap -mx-4 mb-12 md:mb-20">
               {/* loop */}
               {loading ? (
