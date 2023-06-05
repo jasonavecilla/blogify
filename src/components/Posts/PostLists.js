@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
   fetchPrivatePostsAction,
@@ -13,11 +13,16 @@ const PostLists = () => {
   const { posts, error, loading, success } = useSelector(
     (state) => state?.posts
   );
+  //Pagination state
+  const [page, setPage] = useState(1);
+
   //dispatch
   useEffect(() => {
-    dispatch(fetchPrivatePostsAction());
-  }, [dispatch]);
+    dispatch(fetchPrivatePostsAction({ page, limit: 2 }));
+  }, [dispatch, page]);
 
+  const handleNext = () => setPage(page + 1);
+  const handlePrev = () => setPage(page > 1 ? page - 1 : 1);
   return (
     <>
       <div>
@@ -106,6 +111,21 @@ const PostLists = () => {
             </div>
           </div>
         </section>
+        {/* Pagination buttons */}
+        <div className="flex justify-center items-center my-4 space-x-2">
+          <button
+            className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded"
+            onClick={handlePrev}
+          >
+            Prev
+          </button>
+          <button
+            className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded"
+            onClick={handleNext}
+          >
+            Next
+          </button>
+        </div>
       </div>
     </>
   );
