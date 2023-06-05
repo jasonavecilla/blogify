@@ -33,7 +33,10 @@ export const fetchPublicPostsAction = createAsyncThunk(
 //!Fetch pricate posts
 export const fetchPrivatePostsAction = createAsyncThunk(
   "posts/fetch-private-posts",
-  async ({ page = 1, limit = 2 }, { rejectWithValue, getState, dispatch }) => {
+  async (
+    { page = 1, limit = 2, searchTerm = "" },
+    { rejectWithValue, getState, dispatch }
+  ) => {
     //make request
     try {
       const token = getState().users?.userAuth?.userInfo?.token;
@@ -43,7 +46,7 @@ export const fetchPrivatePostsAction = createAsyncThunk(
         },
       };
       const { data } = await axios.get(
-        `http://localhost:9080/api/v1/posts?page=${page}&limit=${limit}`,
+        `http://localhost:9080/api/v1/posts?page=${page}&limit=${limit}&searchTerm=${searchTerm}`,
         config
       );
       return data;

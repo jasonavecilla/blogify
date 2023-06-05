@@ -13,13 +13,13 @@ const PostLists = () => {
   const { posts, error, loading, success } = useSelector(
     (state) => state?.posts
   );
-  //Pagination state
+  //Pagination/search term state
   const [page, setPage] = useState(1);
-
+  const [searchTerm, setSearchTerm] = useState("");
   //dispatch
   useEffect(() => {
-    dispatch(fetchPrivatePostsAction({ page, limit: 2 }));
-  }, [dispatch, page]);
+    dispatch(fetchPrivatePostsAction({ page, limit: 2, searchTerm }));
+  }, [dispatch, page, searchTerm]);
 
   const handleNext = () => setPage(page + 1);
   const handlePrev = () => setPage(page > 1 ? page - 1 : 1);
@@ -44,6 +44,13 @@ const PostLists = () => {
               <h3 className="mb-4 text-3xl md:text-5xl leading-tight text-darkCoolGray-900 font-bold tracking-tighter">
                 Read our Trending Articles
               </h3>
+              {/* Search input */}
+              <input
+                type="text"
+                placeholder="Search By Title"
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
+              />
             </div>
 
             <div className="flex flex-wrap -mx-4 mb-12 md:mb-20">
