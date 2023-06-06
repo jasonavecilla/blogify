@@ -51,25 +51,27 @@ const PostLists = () => {
                 Read our Trending Articles
               </h3>
               {/* Search input */}
-              <input
-                type="text"
-                placeholder="Search By Title"
-                value={searchTerm}
-                onChange={(e) => setSearchTerm(e.target.value)}
-              />
+              <div className="mb-4">
+                <input
+                  type="text"
+                  placeholder="Search by title..."
+                  value={searchTerm}
+                  onChange={(e) => setSearchTerm(e.target.value)}
+                  className="w-full p-2 border border-gray-300 rounded"
+                />
+              </div>
             </div>
             {/* Categories */}
-            <div>
-              {categories?.categories?.map((category) => {
-                return (
-                  <button
-                    onClick={() => setCategory(category?._id)}
-                    key={category?._id}
-                  >
-                    {category?.name}
-                  </button>
-                );
-              })}
+            <div className="flex justify-center mb-4">
+              {categories?.categories?.map((cat) => (
+                <button
+                  key={cat._id}
+                  onClick={() => setCategory(cat._id)}
+                  className="mx-2 px-4 py-2 text-white bg-green-500 hover:bg-blue-600 rounded"
+                >
+                  {cat.name}
+                </button>
+              ))}
             </div>
             <div className="flex flex-wrap -mx-4 mb-12 md:mb-20">
               {/* loop */}

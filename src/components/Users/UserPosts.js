@@ -1,4 +1,6 @@
 import React from "react";
+import { FiCalendar } from "react-icons/fi";
+import { Link } from "react-router-dom";
 
 const UserPosts = ({ posts }) => {
   return (
@@ -45,6 +47,13 @@ const UserPosts = ({ posts }) => {
                     >
                       {post?.category?.name}
                     </a>
+                    {/* Schedule post link */}
+                    <Link
+                      to={`/posts/schedule/${post?._id}`}
+                      className="flex w-1/2 items-center px-6 py-1 bg-blue-500 text-white rounded-md shadow-md hover:bg-blue-700 transition-colors duration-300 ease-in-out"
+                    >
+                      <FiCalendar className="mr-2" /> Schedule Post
+                    </Link>
                   </div>
                   <p className="mb-2 font-medium text-coolGray-500">
                     {new Date(post?.createdAt).toDateString()}
