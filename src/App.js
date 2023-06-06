@@ -52,7 +52,7 @@ export default function App() {
         ></Route>
 
         <Route
-          path="/posts/schedule/:post"
+          path="/posts/schedule/:postId"
           element={
             <ProctedRoute>
               <SchedulePost />
