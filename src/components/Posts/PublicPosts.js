@@ -42,7 +42,10 @@ const PublicPosts = () => {
               ) : (
                 posts?.posts?.map((post) => {
                   return (
-                    <div className="w-full md:w-1/2 px-4 mb-8">
+                    <Link
+                      to={`/posts/${post?._id}`}
+                      className="w-full md:w-1/2 px-4 mb-8"
+                    >
                       <a
                         className="block mb-6 overflow-hidden rounded-md"
                         href="#"
@@ -88,7 +91,7 @@ const PublicPosts = () => {
                           />
                         </svg>
                       </Link>
-                    </div>
+                    </Link>
                   );
                 })
               )}
