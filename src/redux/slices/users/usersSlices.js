@@ -17,6 +17,8 @@ const INITIAL_STATE = {
   isUpdated: false,
   isRegistered: false,
   isLogin: false,
+  isCoverImageUploaded: false,
+  isProfileImgUploaded: false,
   emailMessage: undefined,
   profile: {},
   isEmailSent: false,
@@ -433,13 +435,14 @@ const usersSlice = createSlice({
     });
     builder.addCase(uploadCoverImageAction.fulfilled, (state, action) => {
       state.profile = action.payload;
-      state.success = true;
+      state.isCoverImageUploaded = true;
       state.loading = false;
       state.error = null;
     });
     builder.addCase(uploadCoverImageAction.rejected, (state, action) => {
       state.error = action.payload;
       state.loading = false;
+      state.isCoverImageUploaded = false;
     });
 
     //get user private profile
