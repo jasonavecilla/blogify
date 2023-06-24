@@ -5,13 +5,7 @@ import PublicPosts from "../Posts/PublicPosts";
 const Homepage = () => {
   return (
     <div>
-      <section
-        className="relative bg-white overflow-hidden"
-        style={{
-          backgroundImage: 'url("flex-ui-assets/elements/pattern-white.svg")',
-          backgroundPosition: "center",
-        }}
-      >
+      <section className="relative bg-white overflow-hidden">
         <div className="bg-transparent">
           <div className="navbar-menu hidden fixed top-0 left-0 z-50 w-full h-full bg-coolGray-900 bg-opacity-50">
             <div className="fixed top-0 left-0 bottom-0 w-full w-4/6 max-w-xs bg-white">
@@ -46,8 +40,8 @@ const Homepage = () => {
                 <ul>
                   <li className="mb-6 flex items-center">
                     <img
-                      className="mr-3"
-                      src="flex-ui-assets/elements/checkbox-green.svg"
+                      className="mr-3 w-8"
+                      src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQDjOum6ZqWsYOm9xwGQVs_EkV9-tRy9G35Qojh9aeB_Q&s"
                     />
                     <p className="text-lg md:text-xl leading-7 text-coolGray-500 font-medium">
                       Unpacking the Latest in Technology and Innovation
@@ -55,8 +49,8 @@ const Homepage = () => {
                   </li>
                   <li className="mb-6 flex items-center">
                     <img
-                      className="mr-3"
-                      src="flex-ui-assets/elements/checkbox-green.svg"
+                      className="mr-3 w-8"
+                      src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQDjOum6ZqWsYOm9xwGQVs_EkV9-tRy9G35Qojh9aeB_Q&s"
                     />
                     <p className="text-lg md:text-xl leading-7 text-coolGray-500 font-medium">
                       Perfect for a blog focused on cutting-edge technology and
@@ -65,8 +59,8 @@ const Homepage = () => {
                   </li>
                   <li className="flex items-center">
                     <img
-                      className="mr-3"
-                      src="flex-ui-assets/elements/checkbox-green.svg"
+                      className="mr-3 w-8"
+                      src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQDjOum6ZqWsYOm9xwGQVs_EkV9-tRy9G35Qojh9aeB_Q&s"
                     />
                     <p className="text-lg md:text-xl leading-7 text-coolGray-500 font-medium">
                       Great if your blog is about sharing innovative and

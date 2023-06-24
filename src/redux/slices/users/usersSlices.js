@@ -14,6 +14,9 @@ const INITIAL_STATE = {
   user: null,
   success: false,
   isverified: false,
+  isUpdated: false,
+  isRegistered: false,
+  isLogin: false,
   emailMessage: undefined,
   profile: {},
   isEmailSent: false,
@@ -385,13 +388,14 @@ const usersSlice = createSlice({
     });
     builder.addCase(loginAction.fulfilled, (state, action) => {
       state.userAuth.userInfo = action.payload;
-      state.success = true;
+      state.isLogin = true;
       state.loading = false;
       state.error = null;
     });
     builder.addCase(loginAction.rejected, (state, action) => {
       state.error = action.payload;
       state.loading = false;
+      state.isLogin = false;
     });
 
     //get user public profile
@@ -449,13 +453,14 @@ const usersSlice = createSlice({
     });
     builder.addCase(updateUserProfileAction.fulfilled, (state, action) => {
       state.user = action.payload;
-      state.success = true;
+      state.isUpdated = true;
       state.loading = false;
       state.error = null;
     });
     builder.addCase(updateUserProfileAction.rejected, (state, action) => {
       state.error = action.payload;
       state.loading = false;
+      state.isUpdated = false;
     });
     builder.addCase(userPrivateProfileAction.fulfilled, (state, action) => {
       state.profile = action.payload;
@@ -596,7 +601,7 @@ const usersSlice = createSlice({
     //handle fulfilled state
     builder.addCase(registerAction.fulfilled, (state, action) => {
       state.user = action.payload;
-      state.success = true;
+      state.isRegistered = true;
       state.loading = false;
       state.error = null;
     });
@@ -604,6 +609,7 @@ const usersSlice = createSlice({
     builder.addCase(registerAction.rejected, (state, action) => {
       state.error = action.payload;
       state.loading = false;
+      state.isRegistered = false;
     });
     //! Reset error action
     builder.addCase(resetErrorAction.fulfilled, (state) => {

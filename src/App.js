@@ -18,6 +18,8 @@ import PasswordResetRequest from "./components/Users/PasswordResetRequest";
 import PasswordReset from "./components/Users/PasswordReset";
 import UpdateUser from "./components/Users/UpdateUser";
 import SchedulePost from "./components/Posts/SchedulePost";
+import Footer from "./components/Footer/Footer";
+import RegisterUser from "./components/Users/RegisterUser";
 
 export default function App() {
   //! Get the login user from store
@@ -31,6 +33,7 @@ export default function App() {
       <Routes>
         <Route path="" element={<Homepage />}></Route>
         <Route path="/login" element={<Login />}></Route>
+        <Route path="/register" element={<RegisterUser />}></Route>
 
         {/* profile */}
         <Route
@@ -145,6 +148,8 @@ export default function App() {
           }
         ></Route>
       </Routes>
+      {/* Footer */}
+      <Footer />
     </BrowserRouter>
   );
 }

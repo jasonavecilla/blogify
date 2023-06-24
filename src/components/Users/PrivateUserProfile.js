@@ -44,7 +44,10 @@ export default function PrivateUserProfile() {
                     <div>
                       <img
                         className="object-cover w-full h-32 lg:h-48"
-                        src={profile?.user?.coverImage}
+                        src={
+                          profile?.user?.coverImage ||
+                          "https://cdn.pixabay.com/photo/2020/02/06/15/59/forest-4824759_1280.png"
+                        }
                         alt={profile?.user?.username}
                       />
 
@@ -65,7 +68,10 @@ export default function PrivateUserProfile() {
                       <div className="relative flex items-center justify-center">
                         <img
                           className="w-24 h-24 rounded-full ring-4 ring-white sm:h-32 sm:w-32"
-                          src={profile?.user?.profilePicture}
+                          src={
+                            profile?.user?.profilePicture ||
+                            "https://cdn.pixabay.com/photo/2016/11/18/23/38/child-1837375_1280.png"
+                          }
                           alt={profile?.user?.username}
                         />
                         <label
@@ -132,7 +138,7 @@ export default function PrivateUserProfile() {
                                 d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"
                               />
                             </svg>
-                            20
+                            ({profile?.user?.profileViewers?.length})
                           </button>
 
                           {/* follow */}
@@ -152,7 +158,7 @@ export default function PrivateUserProfile() {
                                 clipRule="evenodd"
                               />
                             </svg>
-                            Followers
+                            Followers ({profile?.user?.followers?.length})
                           </button>
                         </div>
                       </div>

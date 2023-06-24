@@ -87,8 +87,11 @@ const PostDetails = () => {
                 <div className="w-auto px-2">
                   <img
                     className="w-12 h-12 rounded-full"
-                    src={post?.post?.image}
-                    alt="post image"
+                    alt="author image"
+                    src={
+                      userAuth?.userInfo?.profilePicture ||
+                      "https://cdn.pixabay.com/photo/2016/11/18/23/38/child-1837375_1280.png"
+                    }
                   />
                 </div>
                 <div className="w-auto px-2">

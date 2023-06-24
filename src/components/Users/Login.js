@@ -38,12 +38,23 @@ const Login = () => {
     });
   };
   //store data
-  const { userAuth, loading, error, success } = useSelector(
+  const { userAuth, loading, error, isLogin } = useSelector(
     (state) => state?.users
   );
+
+  //Rediret if token expired
+  useEffect(() => {
+    if (error?.message === "Token expired/Invalid") {
+      navigate("/login");
+    }
+  }, [error?.message]);
+
   //! Redirect
   useEffect(() => {
-    if (userAuth?.userInfo?.token) {
+    if (
+      userAuth?.userInfo?.token &&
+      error?.message !== "Token expired/Invalid"
+    ) {
       navigate("/user-profile");
     }
   }, [userAuth?.userInfo?.token]);
@@ -52,9 +63,6 @@ const Login = () => {
     <section className="py-16 xl:pb-56 bg-white overflow-hidden">
       <div className="container px-4 mx-auto">
         <div className="text-center max-w-md mx-auto">
-          <a className="mb-36 inline-block" href="#">
-            <img src="flaro-assets/logos/flaro-logo-black-xl.svg" alt />
-          </a>
           <h2 className="mb-4 text-6xl md:text-7xl text-center font-bold font-heading tracking-px-n leading-tight">
             Login to your account
           </h2>
@@ -64,7 +72,7 @@ const Login = () => {
           {/* Display error */}
           {error && <ErrorMsg message={error?.message} />}
           {/* success message */}
-          {success && <SuccesMsg message="Login Success" />}
+          {isLogin && <SuccesMsg message="Login Success" />}
           <form onSubmit={handleSubmit}>
             <label className="block mb-5">
               <input

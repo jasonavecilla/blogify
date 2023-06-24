@@ -77,7 +77,10 @@ export default function PrivateNavbar() {
                         <span className="sr-only">Open user menu</span>
                         <img
                           className="h-8 w-8 rounded-full"
-                          src={userAuth?.userInfo?.profilePicture}
+                          src={
+                            userAuth?.userInfo?.profilePicture ||
+                            "https://cdn.pixabay.com/photo/2016/11/18/23/38/child-1837375_1280.png"
+                          }
                           alt={userAuth?.userInfo?.username}
                         />
                       </Menu.Button>
@@ -142,28 +145,28 @@ export default function PrivateNavbar() {
           <Disclosure.Panel className="md:hidden">
             <div className="space-y-1 pt-2 pb-3">
               {/* Current: "bg-indigo-50 border-indigo-500 text-indigo-700", Default: "border-transparent text-gray-500 hover:bg-gray-50 hover:border-gray-300 hover:text-gray-700" */}
-              <Disclosure.Button
-                as="a"
-                href="#"
+              <Link
+                to={"/"}
                 className="block border-l-4 border-indigo-500 bg-indigo-50 py-2 pl-3 pr-4 text-base font-medium text-indigo-700 sm:pl-5 sm:pr-6"
               >
                 Home
-              </Disclosure.Button>
-              <Disclosure.Button
-                as="a"
-                href="#"
+              </Link>
+              <Link
+                to={"/posts"}
                 className="block border-l-4 border-transparent py-2 pl-3 pr-4 text-base font-medium text-gray-500 hover:border-gray-300 hover:bg-gray-50 hover:text-gray-700 sm:pl-5 sm:pr-6"
               >
                 Posts
-              </Disclosure.Button>
+              </Link>
             </div>
             <div className="border-t border-gray-200 pt-4 pb-3">
               <div className="flex items-center px-4 sm:px-6">
                 <div className="flex-shrink-0">
                   <img
                     className="h-10 w-10 rounded-full"
-                    src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
-                    alt=""
+                    src={
+                      userAuth?.userInfo?.profilePicture ||
+                      "https://cdn.pixabay.com/photo/2016/11/18/23/38/child-1837375_1280.png"
+                    }
                   />
                 </div>
                 <div className="ml-3">
@@ -189,20 +192,18 @@ export default function PrivateNavbar() {
                 >
                   Your Profile
                 </Link>
-                <Disclosure.Button
-                  as="a"
-                  href="#"
+                <Link
+                  to={"/update-profile"}
                   className="block px-4 py-2 text-base font-medium text-gray-500 hover:bg-gray-100 hover:text-gray-800 sm:px-6"
                 >
                   Settings
-                </Disclosure.Button>
-                <Disclosure.Button
-                  as="a"
-                  href="#"
+                </Link>
+                <button
+                  onClick={logoutHandler}
                   className="block px-4 py-2 text-base font-medium text-gray-500 hover:bg-gray-100 hover:text-gray-800 sm:px-6"
                 >
                   Sign out
-                </Disclosure.Button>
+                </button>
               </div>
             </div>
           </Disclosure.Panel>

@@ -5,8 +5,9 @@ import {
   fetchPublicPostsAction,
 } from "../../redux/slices/posts/postsSlice";
 import LoadingComponent from "../Alert/LoadingComponent";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { fetchCategoriesAction } from "../../redux/slices/categories/categoriesSlice";
+import truncatePost from "../../utils/truncatePost";
 
 const PostLists = () => {
   //! redux store
@@ -14,6 +15,14 @@ const PostLists = () => {
   const { posts, error, loading, success } = useSelector(
     (state) => state?.posts
   );
+  //Rediret if token expired
+  const navigate = useNavigate();
+  useEffect(() => {
+    if (error?.message === "Token expired/Invalid") {
+      navigate("/login");
+    }
+  }, [error?.message]);
+
   //Pagination/search term state
   const [page, setPage] = useState(1);
   const [searchTerm, setSearchTerm] = useState("");
@@ -21,7 +30,7 @@ const PostLists = () => {
 
   //dispatch fetching posts
   useEffect(() => {
-    dispatch(fetchPrivatePostsAction({ page, limit: 2, searchTerm, category }));
+    dispatch(fetchPrivatePostsAction({ page, limit: 4, searchTerm, category }));
     dispatch(fetchCategoriesAction());
   }, [dispatch, page, searchTerm, category]);
 
@@ -62,17 +71,18 @@ const PostLists = () => {
               </div>
             </div>
             {/* Categories */}
-            <div className="flex justify-center mb-4">
+            <div className="flex flex-wrap justify-center mb-4">
               {categories?.categories?.map((cat) => (
                 <button
                   key={cat._id}
                   onClick={() => setCategory(cat._id)}
-                  className="mx-2 px-4 py-2 text-white bg-green-500 hover:bg-blue-600 rounded"
+                  className="mx-2 my-2 px-4 py-2 text-white bg-gradient-to-r from-green-500 to-blue-500  rounded"
                 >
                   {cat.name}
                 </button>
               ))}
             </div>
+
             <div className="flex flex-wrap -mx-4 mb-12 md:mb-20">
               {/* loop */}
               {loading ? (
@@ -84,7 +94,10 @@ const PostLists = () => {
               ) : (
                 posts?.posts?.map((post) => {
                   return (
-                    <div className="w-full md:w-1/2 px-4 mb-8">
+                    <Link
+                      to={`/posts/${post?._id}`}
+                      className="w-full md:w-1/2 px-4 mb-8"
+                    >
                       <a
                         className="block mb-6 overflow-hidden rounded-md"
                         href="#"
@@ -112,7 +125,9 @@ const PostLists = () => {
                       >
                         {post?.title}
                       </a>
-                      <p className="mb-4 text-coolGray-500">{post?.content}</p>
+                      <p className="mb-4 text-coolGray-500">
+                        {truncatePost(post?.content)}
+                      </p>
                       <Link
                         className="inline-flex items-center text-base md:text-lg text-green-500 hover:text-green-600 font-semibold"
                         to={`/posts/${post?._id}`}
@@ -131,7 +146,7 @@ const PostLists = () => {
                           />
                         </svg>
                       </Link>
-                    </div>
+                    </Link>
                   );
                 })
               )}

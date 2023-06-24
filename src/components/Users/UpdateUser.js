@@ -36,7 +36,9 @@ const UpdateUser = () => {
     });
   };
   //store data
-  const { loading, error, success } = useSelector((state) => state?.users);
+  const { loading, error, success, isUpdated } = useSelector(
+    (state) => state?.users
+  );
 
   return (
     <form
@@ -48,7 +50,7 @@ const UpdateUser = () => {
           Update your Profile
         </h1>
         {error && <ErrorMsg message={error?.message} />}
-        {success && <SuccesMsg message="Profile updated, login back again" />}
+        {isUpdated && <SuccesMsg message="Profile updated, login back again" />}
         <div className="mb-4 relative">
           <AiOutlineUser className="absolute text-gray-500 text-2xl top-2 left-2" />
           <input
