@@ -4,6 +4,7 @@ import {
   resetErrorAction,
   resetSuccesAction,
 } from "../globalSlice/globalSlice";
+import BASE_URL from "../../../utils/baseURL";
 
 //initialstate
 
@@ -36,10 +37,7 @@ export const loginAction = createAsyncThunk(
   async (payload, { rejectWithValue, getState, dispatch }) => {
     //make request
     try {
-      const { data } = await axios.post(
-        "http://localhost:9080/api/v1/users/login",
-        payload
-      );
+      const { data } = await axios.post(`${BASE_URL}/users/login`, payload);
       //! save the user into localstorage
       localStorage.setItem("userInfo", JSON.stringify(data));
       return data;
@@ -55,10 +53,7 @@ export const registerAction = createAsyncThunk(
   async (payload, { rejectWithValue, getState, dispatch }) => {
     //make request
     try {
-      const { data } = await axios.post(
-        "http://localhost:9080/api/v1/users/register",
-        payload
-      );
+      const { data } = await axios.post(`${BASE_URL}/users/register`, payload);
       return data;
     } catch (error) {
       return rejectWithValue(error?.response?.data);
@@ -79,7 +74,7 @@ export const userPublicProfileAction = createAsyncThunk(
         },
       };
       const { data } = await axios.get(
-        `http://localhost:9080/api/v1/users/public-profile/${userId}`,
+        `${BASE_URL}/users/public-profile/${userId}`,
         config
       );
       return data;
@@ -101,10 +96,7 @@ export const userPrivateProfileAction = createAsyncThunk(
           Authorization: `Bearer ${token}`,
         },
       };
-      const { data } = await axios.get(
-        `http://localhost:9080/api/v1/users/profile/`,
-        config
-      );
+      const { data } = await axios.get(`${BASE_URL}/users/profile/`, config);
       return data;
     } catch (error) {
       return rejectWithValue(error?.response?.data);
@@ -125,7 +117,7 @@ export const blockUserAction = createAsyncThunk(
         },
       };
       const { data } = await axios.put(
-        `http://localhost:9080/api/v1/users/block/${userId}`,
+        `${BASE_URL}/users/block/${userId}`,
         {},
         config
       );
@@ -149,7 +141,7 @@ export const unBlockUserAction = createAsyncThunk(
         },
       };
       const { data } = await axios.put(
-        `http://localhost:9080/api/v1/users/unblock/${userId}`,
+        `${BASE_URL}/users/unblock/${userId}`,
         {},
         config
       );
@@ -173,7 +165,7 @@ export const followUserAction = createAsyncThunk(
         },
       };
       const { data } = await axios.put(
-        `http://localhost:9080/api/v1/users/following/${userId}`,
+        `${BASE_URL}/users/following/${userId}`,
         {},
         config
       );
@@ -197,7 +189,7 @@ export const unFollowUserAction = createAsyncThunk(
         },
       };
       const { data } = await axios.put(
-        `http://localhost:9080/api/v1/users/unfollowing/${userId}`,
+        `${BASE_URL}/users/unfollowing/${userId}`,
         {},
         config
       );
@@ -230,7 +222,7 @@ export const uploadCoverImageAction = createAsyncThunk(
         },
       };
       const { data } = await axios.put(
-        "http://localhost:9080/api/v1/users/upload-cover-image",
+        `${BASE_URL}/users/upload-cover-image`,
         formData,
         config
       );
@@ -256,7 +248,7 @@ export const uploadProfileImageAction = createAsyncThunk(
         },
       };
       const { data } = await axios.put(
-        "http://localhost:9080/api/v1/users/upload-profile-image",
+        `${BASE_URL}/users/upload-profile-image`,
         formData,
         config
       );
@@ -280,7 +272,7 @@ export const sendAccVerificationEmailAction = createAsyncThunk(
         },
       };
       const { data } = await axios.put(
-        `http://localhost:9080/api/v1/users/account-verification-email`,
+        `${BASE_URL}/users/account-verification-email`,
         {},
         config
       );
@@ -304,7 +296,7 @@ export const verifyAccountAction = createAsyncThunk(
         },
       };
       const { data } = await axios.get(
-        `http://localhost:9080/api/v1/users/account-verification/${verifyToken}`,
+        `${BASE_URL}/users/account-verification/${verifyToken}`,
         config
       );
       return data;
@@ -321,7 +313,7 @@ export const forgotPasswordAction = createAsyncThunk(
     //make request
     try {
       const { data } = await axios.post(
-        "http://localhost:9080/api/v1/users/forgot-password",
+        `${BASE_URL}/users/forgot-password`,
         payload
       );
       //! save the user into localstorage
@@ -340,7 +332,7 @@ export const passwordResetAction = createAsyncThunk(
     //make request
     try {
       const { data } = await axios.post(
-        `http://localhost:9080/api/v1/users/reset-password/${resetToken}`,
+        `${BASE_URL}/users/reset-password/${resetToken}`,
         {
           password,
         }
@@ -368,7 +360,7 @@ export const updateUserProfileAction = createAsyncThunk(
         },
       };
       const { data } = await axios.put(
-        `http://localhost:9080/api/v1/users/update-profile/`,
+        `${BASE_URL}/users/update-profile/`,
         payload,
         config
       );

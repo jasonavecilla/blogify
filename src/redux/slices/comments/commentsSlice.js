@@ -4,6 +4,7 @@ import {
   resetErrorAction,
   resetSuccesAction,
 } from "../globalSlice/globalSlice";
+import BASE_URL from "../../../utils/baseURL";
 
 //initialstate
 const INITIAL_STATE = {
@@ -26,7 +27,7 @@ export const createCommentAction = createAsyncThunk(
         },
       };
       const { data } = await axios.post(
-        `http://localhost:9080/api/v1/comments/${payload?.postId}`,
+        `${BASE_URL}/${payload?.postId}`,
         {
           message: payload?.message,
         },
