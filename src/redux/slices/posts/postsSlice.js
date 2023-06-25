@@ -60,7 +60,7 @@ export const getPostAction = createAsyncThunk(
   async (postId, { rejectWithValue, getState, dispatch }) => {
     //make request
     try {
-      const { data } = await axios.get(`${BASE_URL}/${postId}`);
+      const { data } = await axios.get(`${BASE_URL}/posts/${postId}`);
       return data;
     } catch (error) {
       return rejectWithValue(error?.response?.data);

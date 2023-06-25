@@ -16,7 +16,9 @@ const UploadProfileImage = () => {
   const [formData, setFormData] = useState({
     image: null,
   });
-  const { success, loading, error } = useSelector((state) => state?.users);
+  const { isProfileImgUploaded, loading, error } = useSelector(
+    (state) => state?.users
+  );
   //1. Validate form
   const validateForm = (data) => {
     let errors = {};
@@ -57,7 +59,9 @@ const UploadProfileImage = () => {
           </h2>
           {/* error */}
           {error && <ErrorMsg message={error?.message} />}
-          {success && <SuccesMsg message="Image uploaded successfully" />}
+          {isProfileImgUploaded && (
+            <SuccesMsg message="Image uploaded successfully" />
+          )}
           <h3 className="mb-7 text-base md:text-lg text-coolGray-500 font-medium text-center">
             Upload or update Profile Image
           </h3>

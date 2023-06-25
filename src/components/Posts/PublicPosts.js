@@ -34,7 +34,9 @@ const PublicPosts = () => {
             <div className="flex flex-wrap -mx-4 mb-12 md:mb-20">
               {/* loop */}
               {loading ? (
-                <LoadingComponent />
+                <div className="flex justify-center items-center h-full w-full">
+                  <LoadingComponent />
+                </div>
               ) : error ? (
                 <h3 className="text-red-500 text-center">{error?.message}</h3>
               ) : posts?.post?.length <= 0 ? (

@@ -27,7 +27,7 @@ export const createCommentAction = createAsyncThunk(
         },
       };
       const { data } = await axios.post(
-        `${BASE_URL}/${payload?.postId}`,
+        `${BASE_URL}/comments/${payload?.postId}`,
         {
           message: payload?.message,
         },

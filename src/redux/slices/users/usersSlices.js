@@ -413,13 +413,14 @@ const usersSlice = createSlice({
     });
     builder.addCase(uploadProfileImageAction.fulfilled, (state, action) => {
       state.profile = action.payload;
-      state.success = true;
+      state.isProfileImgUploaded = true;
       state.loading = false;
       state.error = null;
     });
     builder.addCase(uploadProfileImageAction.rejected, (state, action) => {
       state.error = action.payload;
       state.loading = false;
+      state.isProfileImgUploaded = false;
     });
     //! upload user cover image
     builder.addCase(uploadCoverImageAction.pending, (state, action) => {
