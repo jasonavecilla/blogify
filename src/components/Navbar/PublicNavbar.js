@@ -26,7 +26,9 @@ export default function PublicNavbar() {
                 </div>
                 <div className="flex flex-shrink-0 items-center">
                   {/* Logo here */}
-                  <FaBlog className="block text-green-500 h-8 w-auto lg:hidden" />
+                  <Link to="/">
+                    <FaBlog className="block text-green-500 h-8 w-auto lg:hidden" />
+                  </Link>
 
                   <FaBlog className="hidden text-green-500 h-8 w-auto lg:block" />
                 </div>
@@ -87,6 +89,18 @@ export default function PublicNavbar() {
                 className="block border-l-4 border-transparent py-2 pl-3 pr-4 text-base font-medium text-gray-500 hover:border-gray-300 hover:bg-gray-50 hover:text-gray-700 sm:pl-5 sm:pr-6"
               >
                 Posts
+              </Link>
+              <Link
+                to={"/login"}
+                className="inline-flex items-center border-b-2 border-transparent px-1 pt-1 text-sm font-medium text-gray-500 hover:border-gray-300 hover:text-gray-700"
+              >
+                Login
+              </Link>
+              <Link
+                to={"/register"}
+                className="inline-flex items-center border-b-2 border-transparent px-1 pt-1 text-sm font-medium text-gray-500 hover:border-gray-300 hover:text-gray-700"
+              >
+                Register
               </Link>
             </div>
           </Disclosure.Panel>
