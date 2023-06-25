@@ -4,6 +4,7 @@ import { fetchPublicPostsAction } from "../../redux/slices/posts/postsSlice";
 import LoadingComponent from "../Alert/LoadingComponent";
 import { Link } from "react-router-dom";
 import truncatePost from "../../utils/truncatePost";
+import Warning from "../Alert/Warning";
 
 const PublicPosts = () => {
   //! redux store
@@ -11,6 +12,9 @@ const PublicPosts = () => {
   const { posts, error, loading, success } = useSelector(
     (state) => state?.posts
   );
+
+  const { userAuth } = useSelector((state) => state?.users);
+
   //dispatch
   useEffect(() => {
     dispatch(fetchPublicPostsAction());
@@ -98,6 +102,7 @@ const PublicPosts = () => {
                 })
               )}
             </div>
+            {userAuth?.userInfo && <Warning />}
           </div>
         </section>
       </div>
