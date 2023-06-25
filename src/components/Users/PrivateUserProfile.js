@@ -165,7 +165,7 @@ export default function PrivateUserProfile() {
                     </div>
                     <div className="flex-1 hidden min-w-0 mt-6 sm:block 2xl:hidden">
                       <h1 className="text-2xl font-bold text-gray-900 truncate">
-                        {profile.name}
+                        {profile.user?.username}
                       </h1>
                     </div>
                   </div>
