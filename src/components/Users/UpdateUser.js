@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { AiOutlineUser, AiOutlineMail } from "react-icons/ai";
 import { useDispatch, useSelector } from "react-redux";
 import "tailwindcss/tailwind.css";
@@ -39,7 +39,13 @@ const UpdateUser = () => {
   const { loading, error, success, isUpdated } = useSelector(
     (state) => state?.users
   );
-
+  useEffect(() => {
+    if (isUpdated) {
+      setTimeout(() => {
+        window.location.reload();
+      }, 1000);
+    }
+  });
   return (
     <form
       onSubmit={handleSubmit}
