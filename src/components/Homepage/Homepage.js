@@ -72,7 +72,7 @@ const Homepage = () => {
                   </li>
                 </ul>
                 <Link
-                  to="/https://www.udemy.com/course/mern-stack-blogify-project-based-course/?couponCode=08309CBBC4E983226762"
+                  to="https://www.udemy.com/course/mern-stack-blogify-project-based-course/?couponCode=08309CBBC4E983226762"
                   className="mb-4 mt-9 p-4 inline-block py-3 px-7 w-full leading-6 text-green-50 font-medium text-center bg-gradient-to-r from-green-400 to-blue-600 hover:from-green-500 hover:to-green-700 focus:ring-2 focus:ring-green-500 focus:ring-opacity-50 rounded-md shadow-lg transform transition-all duration-500 ease-in-out hover:scale-105 flex items-center justify-center animate-pulse"
                 >
                   <FaBookOpen className="mr-2" />
