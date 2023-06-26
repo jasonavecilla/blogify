@@ -1,6 +1,9 @@
 import React from "react";
+import { FaBookOpen } from "react-icons/fa";
 import Register from "../Users/Register";
+
 import PublicPosts from "../Posts/PublicPosts";
+import { Link } from "react-router-dom";
 
 const Homepage = () => {
   return (
@@ -8,7 +11,7 @@ const Homepage = () => {
       <section className="relative bg-white overflow-hidden">
         <div className="bg-transparent">
           <div className="navbar-menu hidden fixed top-0 left-0 z-50 w-full h-full bg-coolGray-900 bg-opacity-50">
-            <div className="fixed top-0 left-0 bottom-0 w-full w-4/6 max-w-xs bg-white">
+            <div className="fixed top-0 left-0 bottom-0 w-full max-w-xs bg-white">
               <a className="navbar-close absolute top-5 p-4 right-3" href="#">
                 <svg
                   width={12}
@@ -68,6 +71,13 @@ const Homepage = () => {
                     </p>
                   </li>
                 </ul>
+                <Link
+                  to="/https://www.udemy.com/course/mern-stack-blogify-project-based-course/?couponCode=08309CBBC4E983226762"
+                  className="mb-4 mt-9 p-4 inline-block py-3 px-7 w-full leading-6 text-green-50 font-medium text-center bg-gradient-to-r from-green-400 to-blue-600 hover:from-green-500 hover:to-green-700 focus:ring-2 focus:ring-green-500 focus:ring-opacity-50 rounded-md shadow-lg transform transition-all duration-500 ease-in-out hover:scale-105 flex items-center justify-center animate-pulse"
+                >
+                  <FaBookOpen className="mr-2" />
+                  Enroll Now
+                </Link>
               </div>
               {/* Register Form */}
               <Register />
