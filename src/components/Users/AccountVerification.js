@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { FiCheckCircle } from "react-icons/fi";
 import { useDispatch, useSelector } from "react-redux";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import {
   logoutAction,
   verifyAccountAction,
@@ -11,6 +11,7 @@ export default function AccountVerification() {
   //! Get the token the url
   const { token } = useParams();
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const { isVerified, loading, error } = useSelector((state) => state?.users);
   useEffect(() => {
     if (token) {
@@ -21,8 +22,10 @@ export default function AccountVerification() {
   }, [dispatch, token]);
   const logoutHandler = () => {
     dispatch(logoutAction());
-    //reload
-    window.location.reload();
+    //redirect
+    setTimeout(() => {
+      navigate("/login");
+    }, 2000);
   };
   return (
     <>
