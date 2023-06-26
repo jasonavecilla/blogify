@@ -102,7 +102,7 @@ const PublicPosts = () => {
                 })
               )}
             </div>
-            {userAuth?.userInfo && <Warning />}
+            {!userAuth?.userInfo && <Warning />}
           </div>
         </section>
       </div>
