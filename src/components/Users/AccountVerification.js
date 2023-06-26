@@ -2,7 +2,10 @@ import { useEffect } from "react";
 import { FiCheckCircle } from "react-icons/fi";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
-import { verifyAccountAction } from "../../redux/slices/users/usersSlices";
+import {
+  logoutAction,
+  verifyAccountAction,
+} from "../../redux/slices/users/usersSlices";
 
 export default function AccountVerification() {
   //! Get the token the url
@@ -16,6 +19,11 @@ export default function AccountVerification() {
       console.log("Token not found");
     }
   }, [dispatch, token]);
+  const logoutHandler = () => {
+    dispatch(logoutAction());
+    //reload
+    window.location.reload();
+  };
   return (
     <>
       <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100">
@@ -31,8 +39,11 @@ export default function AccountVerification() {
               Thank you for verifying your email address. You may now proceed to
               login.
             </p>
-            <button className="mt-8 px-8 py-3 text-white bg-blue-600 rounded-full hover:bg-blue-700 focus:outline-none">
-              Log in
+            <button
+              onClick={logoutHandler}
+              className="mt-8 px-8 py-3 text-white bg-blue-600 rounded-full hover:bg-blue-700 focus:outline-none"
+            >
+              Logout
             </button>
           </>
         )}
