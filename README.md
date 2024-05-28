@@ -1,31 +1,12 @@
-# The MERN Stack Blogify Project: Full Web Development Unleashed - Frontend
+# The MERN Stack Blogify Project - Frontend
 
 ## Description
 
-Welcome to the frontend repository of 'The MERN Stack Blogify Project: Full Web Development Unleashed'. This course guides you through the journey of becoming a proficient full-stack developer, focusing on creating a fully-featured blogging platform using MongoDB, Express.js, React.js, and Node.js (MERN).
+Welcome to the frontend repository of 'The MERN Stack Blogify Project: Full Web Development Unleashed'. focusing on creating a fully-featured blogging platform using MongoDB, Express.js, React.js, and Node.js (MERN).
 
-**Note:** This repository contains the frontend codebase for the application. You can find the backend repository [here](https://github.com/yourusername/blogify-backend).
+**Note:** This repository contains the frontend codebase for the application. You can find the backend repository [here](https://github.com/jasonavecilla/blogifybackend).
 
-The course encompasses a wide array of essential web application features, including user authentication, file uploading, implementing social features, and managing user-to-user interactions. The frontend portion of the course primarily focuses on building a dynamic, user-friendly interface that integrates seamlessly with the backend services.
 
-You'll explore a wide range of React concepts, best practices, and advanced features as you progress. The course also covers integrating third-party libraries and APIs, managing application state with Redux, and understanding the nuances of deploying a MERN stack application to the cloud.
-
-## Learning Outcomes
-
-By the end of this course, you will have the skills to create intuitive, dynamic user interfaces using React.js and related technologies. You'll understand how to interface with backend services and deploy your applications to the cloud.
-
-## Course Outline
-
-In this frontend-focused portion of the course, you'll learn about:
-
-1. **React Components:** Building modular, reusable components using React.
-2. **Routing:** Implementing dynamic routing in a single-page-application context with React Router.
-3. **State Management:** Managing application state effectively using Redux.
-4. **Form Handling:** Creating and validating forms with controlled components.
-5. **Styling:** Creating aesthetically pleasing, responsive designs using CSS-in-JS libraries.
-6. **Error Handling:** Building robust error handling mechanisms to improve the user experience.
-7. **Integrating with Backend Services:** Making API calls from React and managing API responses.
-8. **Deployment:** Deploying a React application to the cloud.
 
 ## Prerequisites
 
@@ -37,17 +18,9 @@ Before you begin, ensure you have:
 4. Proficiency in JavaScript, including ES6 features.
 5. Basic understanding of HTML & CSS.
 
-## Who Should Attend?
 
-- **Frontend Developers:** Looking to expand their skillset with React and Redux.
-- **Current MERN Stack Developers:** Wishing to deepen their practical experience.
-- **Web Development Students:** Looking to gain hands-on experience with building real-world application interfaces.
-- **Career Switchers:** Those considering a career transition into web development.
-- **Entrepreneurs and Business Owners:** Wishing to understand the mechanics behind a blogging system's frontend.
-- **Coding Bootcamp Students or Graduates:** Looking for a practical, in-depth project experience.
-- **Aspiring Full-Stack Developers:** Keen on learning full-stack development, particularly using MERN stack.
 
-Join us in the MERN Blogify Project Course and harness the power of full-stack development to bring your innovative ideas to life!
+
 
 ## Installation and Setup
 
